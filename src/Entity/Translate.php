@@ -5,11 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TranslateRepository")
  */
-class Translate
+class Translate implements JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -143,5 +144,13 @@ class Translate
         $this->language = $language;
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'classe' => $this->classe,
+            'word' => $this->word
+        ];
     }
 }
