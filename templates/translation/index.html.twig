@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Djangoud{% endblock %}
+{% block title %}{{ App.name }}{% endblock %}
 
 {% block body %}
 
@@ -28,7 +28,7 @@
             <div class="input-group mb-3">
                 <div class="form-control"> {{form_row(form.word)}}</div>
                 <div class="input-group-append">
-                    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
+                    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
                 </div>
             </div>
             
