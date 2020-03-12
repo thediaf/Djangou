@@ -4,12 +4,7 @@
 
 {% block body %}
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">{{ App.name }}</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </nav>
+    
     <div class="container mt-4">
     
         {{form_start(form)}}
@@ -35,6 +30,9 @@
         {{form_end(form)}}
         
         <div class="row">
+         {% if wordTranslate is defined and wordTranslate %}
+             {{wordTranslate.word}}    
+        {% endif %}  
             <div id="results">
                 <div class="def hide">Définition: <span class="data"></span></div>
                 <div class="classe hide">Classe: <span class="data"></span></div>
@@ -53,10 +51,11 @@
                     <div class="col-md-4">{{translate.word}}</div>    
                 {% endfor %}
                 
-            {% endfor %}
+            {# {% endfor %} #}
+          
          {% if wordTranslate is defined and wordTranslate %}
              {{wordTranslate.word}}    
-        {% endif %}   #}
+        {% endif %}  
         </div>
     </div>
 {% endblock %}
