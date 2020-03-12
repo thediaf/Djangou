@@ -38,6 +38,25 @@
          {% if wordTranslate is defined and wordTranslate %}
              {{wordTranslate.word}}    
         {% endif %}  
+            <div id="results">
+                <div class="def hide">Définition: <span class="data"></span></div>
+                <div class="classe hide">Classe: <span class="data"></span></div>
+                <div class="undefined hide text-danger">Définition introuvable</div>
+            </div>
+        {# {% if wordTranslate is defined and wordTranslate %}
+            {% for  in wordTranslate %}
+                
+            {% endfor %}
+            {{wordTranslate.word}}    
+
+        {% endif %} #}
+            {# {% for language in languages %} #}
+                {# <div class="col-md-4">{{wordTranslate.word}}</div> #}
+                {# {% for translate in language.translates %}
+                    <div class="col-md-4">{{translate.word}}</div>    
+                {% endfor %} #}
+                
+            {# {% endfor %} #}
         </div>
     </div>
 {% endblock %}
