@@ -29,7 +29,8 @@ class Translate
     private $classe;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Language", inversedBy="words")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Language")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $language;
 
@@ -74,18 +75,6 @@ class Translate
     public function setClasse(string $classe): self
     {
         $this->classe = $classe;
-
-        return $this;
-    }
-
-    public function getLanguage(): ?Language
-    {
-        return $this->language;
-    }
-
-    public function setLanguage(?Language $language): self
-    {
-        $this->language = $language;
 
         return $this;
     }
@@ -140,6 +129,18 @@ class Translate
             $this->translates->removeElement($translate);
             $translate->removeWords($this);
         }
+
+        return $this;
+    }
+
+    public function getLanguage(): ?Language
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?Language $language): self
+    {
+        $this->language = $language;
 
         return $this;
     }

@@ -23,11 +23,6 @@ class Language
      */
     private $name;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Translate", mappedBy="language")
-     */
-    private $words;
-
     public function __construct()
     {
         $this->words = new ArrayCollection();
@@ -46,37 +41,6 @@ class Language
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Translate[]
-     */
-    public function getWords(): Collection
-    {
-        return $this->words;
-    }
-
-    public function addWord(Translate $word): self
-    {
-        if (!$this->words->contains($word)) {
-            $this->words[] = $word;
-            $word->setLanguage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeWord(Translate $word): self
-    {
-        if ($this->words->contains($word)) {
-            $this->words->removeElement($word);
-            // set the owning side to null (unless already changed)
-            if ($word->getLanguage() === $this) {
-                $word->setLanguage(null);
-            }
-        }
 
         return $this;
     }
