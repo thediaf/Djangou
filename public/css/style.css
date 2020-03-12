@@ -1,0 +1,23 @@
+body {
+    /* background-color: aqua; */
+}
+
+#search_wordLanguage,
+#search_translateLanguage {
+    height: 40px;
+}
+
+.input-group {
+    height: 50px;
+    width: 60%;
+}
+
+.form-control {
+    padding: 0%;
+    height: 50px;
+}
+
+#search_word {
+    width: 100%;
+    height: 50px;
+}
