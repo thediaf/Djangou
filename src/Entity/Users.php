@@ -27,6 +27,11 @@ class Users implements UserInterface, \Serializable
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles;
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -59,11 +64,22 @@ class Users implements UserInterface, \Serializable
     /**
      * Undocumented function
      *
-     * @return (Role|string)[] The user roles
+     * @see UserInterface
      */
-    public function getRoles()
+    public function getRoles(): array
     {
-        return ['ROLE_ADMIN'];        
+        $roles = $this->roles;
+
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);        
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;        
     }
 
     /**
