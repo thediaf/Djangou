@@ -20,13 +20,13 @@ class SearchType extends AbstractType
                 'attr' => ['placeholder' => 'mot']
             ])
             ->add('wordLanguage', EntityType::class, [
-                'required' => false,
+                // 'required' => false,
                 'label' => false,
                 'class' => Language::class,
                 'choice_label' => 'name'
             ])
             ->add('translateLanguage', EntityType::class, [
-                'required' => false,
+                // 'required' => false,
                 'label' => false,
                 'class' => Language::class,
                 'choice_label' => 'name'

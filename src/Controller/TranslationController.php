@@ -24,7 +24,7 @@ class TranslationController extends AbstractController
         // $translation = $translateRepository->findAll();
         return $this->render('translation/index.html.twig', [
             'controller_name' => 'TranslationController',
-            'wordTranslate' => array_values($translateRepository->findWord($search)),
+            'wordTranslate' => $translateRepository->getTranslationOf($search),
             'form'  => $form->createView()
         ]);
     }

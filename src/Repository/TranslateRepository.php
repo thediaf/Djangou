@@ -40,6 +40,39 @@ class TranslateRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function getTranslationOf(Search $search)//: ?Translate
+    {
+        $queryBuilder = $this->findWordQuery();
+
+        $source = $this->getSourceTranslate($search);
+
+        return $queryBuilder
+            ->leftJoin('t.translates', 'trans')
+                ->addSelect('trans')
+            ->leftJoin('t.words', 'w')
+                ->addSelect('w')
+            ->where('t.language = :lang')
+            ->andWhere('trans = :word')
+            ->orWhere('w = :word')
+            ->setParameter('lang', $search->getTranslateLanguage())
+            ->setParameter('word', $source)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    private function getSourceTranslate(Search $search): ?Translate
+    {
+        return $this->findWordQuery()
+            ->leftJoin('t.language', 'lang')
+                ->addSelect('lang')
+            ->where('lang.id = :lang')
+            ->andWhere('t.word = :word')
+            ->setParameter('lang', $search->getWordLanguage())
+            ->setParameter('word', $search->getWord())
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 
     public function findWordQuery(): ORMQueryBuilder
     {
