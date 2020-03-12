@@ -14,7 +14,7 @@
                 $('#results .def, #results .classe').fadeOut(0);
                 $('#results .def .data').text('');
                 $('#results .classe .data').text('');
-                results.find('.undefined').fadeIn();
+                results.find('.undefined').fadeOut(0).fadeIn();
             }
         };
 
