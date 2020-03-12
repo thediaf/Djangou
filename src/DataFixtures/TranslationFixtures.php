@@ -33,7 +33,7 @@ class TranslationFixtures extends Fixture implements DependentFixtureInterface
 
         $word1->setWord('good morning');        
         $word1->setLanguage($this->em->getRepository(Language::class)->findOneByName('Anglais'));
-        $word1->addWords($word);
+        $word1->addTranslate($word);
         $word1->setClasse('interjection');
         $manager->persist($word1);
 
