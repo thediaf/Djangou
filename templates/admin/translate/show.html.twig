@@ -1,0 +1,45 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}{{ t.word }} - {{ lang.name }}{% endblock %}
+
+{% block sidebar %}
+    {% include "admin/sidebar.html.twig" with { active: 'translate' } %}
+{% endblock %}
+
+{% block content %}
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('admin_index') }}">Accueil</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('admin_translate') }}">Dictionnaire</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('admin_translation_list', {id: lang.id}) }}">{{ lang.name }}</a></li>
+        <li class="breadcrumb-item active">{{ t.word }}</li>
+    </ol>
+    
+    <div class="container">
+        <div class="row">
+            <div class="heading w-100 mr-5">
+                <h1 class="h5 mt-2 mb-3 pb-2 border-bottom">
+                    <a href="{{ path('admin_translate') }}"><i class="fa fa-chevron-left"></i></a>
+                    Dictionnaire: <strong>{{ lang.name }}</strong>
+                </h1>
+                <h2 class="h6 font-weight-bold text-under-line mt-3">
+                    <span class="badge badge-success mr-2 pt-1">{{ lang.name }}</span>
+                    {{ t.word }}
+                    <a href="{{ path('admin_translate_edit', {id: t.id, lang: lang.id}) }}"  class="btn btn-primary btn-sm float-right"><i class="fa fa-edit"></i> Modifier</a>
+                </h2>
+            </div>
+
+            <h3 class="h5 mb-2 mt-4 border-bottom">Traductions</h3>
+
+            <div class="container px-0">
+                <div class="row mx-0">
+                    {% for translated in t.words %}
+                        <div class="pl-0 col-xs-6 col-sm-6 col-md-4 col-lg-3">
+                            <span class="badge badge-info pt-1">{{ translated.language.name }}</span> {{ translated.word }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

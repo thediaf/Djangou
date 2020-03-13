@@ -113,6 +113,32 @@ class TranslateController extends AbstractController
     }
 
     /**
+     * Edit a word translation identified by it's id
+     * 
+     * @Route("/translate/{id}/edit", name="admin_translate_edit")
+     */
+    public function translateEdit(Request $request, Translate $translate, EntityManagerInterface $entityManager)
+    {
+        return $this->render('admin/translate/edit.html.twig', [
+
+        ]);
+    }
+
+
+    /**
+     * Get details of word identified by it's id
+     * 
+     * @Route("/translate/{id}/details", name="admin_translate_show")
+     */
+    public function translateShow(Translate $translate): Response
+    {
+        return $this->render('admin/translate/show.html.twig', [
+            't' => $translate,
+            'lang' => $translate->getLanguage()
+        ]);
+    }
+
+    /**
      * Words translation listing (with specific language`)
      * 
      * @Route("/translate/{id}", name="admin_translation_list")
