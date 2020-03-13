@@ -25,7 +25,7 @@
                 <h2 class="h6 font-weight-bold text-under-line mt-3">
                     <span class="badge badge-success mr-2 pt-1">{{ lang.name }}</span>
                     {{ t.word }}
-                    <a href="{{ path('admin_translate_edit', {id: t.id, lang: lang.id}) }}"  class="btn btn-primary btn-sm float-right"><i class="fa fa-edit"></i> Modifier</a>
+                    <a href="{{ path('admin_translate_edit', {id: t.id}) }}"  class="btn btn-primary btn-sm float-right"><i class="fa fa-edit"></i> Modifier</a>
                 </h2>
             </div>
 
@@ -33,7 +33,7 @@
 
             <div class="container px-0">
                 <div class="row mx-0">
-                    {% for translated in t.words %}
+                    {% for translated in t.translations %}
                         <div class="pl-0 col-xs-6 col-sm-6 col-md-4 col-lg-3">
                             <span class="badge badge-info pt-1">{{ translated.language.name }}</span> {{ translated.word }}
                         </div>

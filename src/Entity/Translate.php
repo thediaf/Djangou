@@ -152,6 +152,11 @@ class Translate implements JsonSerializable
         return $this;
     }
 
+    public function getTranslations()
+    {
+        return !empty($this->words) ? $this->words : $this->translates;
+    }
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate

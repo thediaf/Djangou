@@ -83,6 +83,9 @@
         ele.hide('fast', function(){ ele.remove(); })
     });
 
+    $('fieldset legend').remove();
+    processTranslateCollection();
+
 
     function processTranslateCollection() {
         $('.add-translation').click(function(e) {

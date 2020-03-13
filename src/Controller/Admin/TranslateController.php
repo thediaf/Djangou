@@ -119,8 +119,22 @@ class TranslateController extends AbstractController
      */
     public function translateEdit(Request $request, Translate $translate, EntityManagerInterface $entityManager)
     {
-        return $this->render('admin/translate/edit.html.twig', [
+        $form = $this->createForm(TranslateType::class, $translate);
+        $form->handleRequest($request);
 
+        if($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($translate);
+
+            $this->addFlash('success', 'Modifications effecutées.');
+            return $this->redirectToRoute('admin_translate_show', [
+                'id' => $translate->getId()
+            ]);
+        }
+
+        return $this->render('admin/translate/edit.html.twig', [
+            'form' => $form->createView(),
+            't' => $translate,
+            'lang' => $translate->getLanguage()
         ]);
     }
 

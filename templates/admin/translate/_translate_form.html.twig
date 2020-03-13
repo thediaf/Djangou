@@ -7,10 +7,10 @@
             </p>
         </div>
         {% endif %}
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <label for="">Mot à ajouter</label>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-7">
           {{ form_widget(form.word, {attr: {class: 'form-control'}}) }}
         </div>
     </div>
@@ -23,10 +23,10 @@
             </p>
         </div>
         {% endif %}
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <label for="">Classe</label>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-7">
           {{ form_widget(form.classe, {attr: {class: 'form-control'}}) }}
         </div>
     </div>
@@ -37,6 +37,8 @@
         data-widget-tags="{{ "<div id=\"translate_translates\"></div>"|e }}"
         data-widget-counter="{{ form.translates|length }}"
         >
+
+        {{ form_widget(form.translates) }}
     </div>
 
     <div class="row my-5 mx-0">
