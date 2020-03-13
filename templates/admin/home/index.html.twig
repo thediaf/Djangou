@@ -1,7 +1,42 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block content %}
-<pre>
-    {{ dump(users) }}
-</pre>
+{% block title %}Dictionnaire
 {% endblock %}
+
+{% block sidebar %}
+	{% include "admin/sidebar.html.twig" with { active: 'home' } %}
+{% endblock %}
+
+{% block content %}
+	<div class="container mt-5">
+		<div class="row card-group d-flex justify-content-center">
+			<div class="col-sm-6 col-md-4">
+				<a href="{{ path('admin_users') }}" class="card bg-info text-white text-center p-3 mx-md-4 text-decoration-none">
+					<blockquote class="blockquote mb-0">
+						<i class="fa fa-3x fa-users"></i>
+						<p>Gestion des utilisateurs</p>
+						<footer class="blockquote-footer text-white">
+							<small>
+								{{ users_count }} utilisateurs inscrits
+							</small>
+						</footer>
+					</blockquote>
+				</a>
+			</div>
+			<div class="col-sm-6 col-md-4">
+				<a href="{{ path('admin_translate') }}" class="card bg-success text-white text-center p-3 mx-md-4 text-decoration-none">
+					<blockquote class="blockquote mb-0">
+						<i class="fa fa-3x fa-book"></i>
+						<p>Dictionnaire</p>
+						<footer class="blockquote-footer text-white">
+							<small>
+								{{ languages_count }} languges disponibles
+							</small>
+						</footer>
+					</blockquote>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>{% endblock %}
+

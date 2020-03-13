@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Repository\LanguageRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,10 +13,11 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="admin_index")
      */
-    public function index(UserRepository $usersRepository)
+    public function index(UserRepository $usersRepository, LanguageRepository $languageRepository)
     {
         return $this->render('admin/home/index.html.twig', [
-            'users' => $usersRepository->getUsersCount(),
+            'users_count' => $usersRepository->getUsersCount(),
+            'languages_count' => $languageRepository->getLanguagesCount(),
         ]);
     }
 }
