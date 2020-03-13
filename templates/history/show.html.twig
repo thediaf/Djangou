@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}History{% endblock %}
+
+{% block body %}
+    <h1>History</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ history.id }}</td>
+            </tr>
+            <tr>
+                <th>SearchedAt</th>
+                <td>{{ history.searchedAt ? history.searchedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>IsMemorised</th>
+                <td>{{ history.isMemorised ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('history_index') }}">back to list</a>
+
+    <a href="{{ path('history_edit', {'id': history.id}) }}">edit</a>
+
+    {{ include('history/_delete_form.html.twig') }}
+{% endblock %}
