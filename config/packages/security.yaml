@@ -3,7 +3,7 @@ security:
     providers:
         from_database:
             entity:
-                class: App\Entity\Users
+                class: App\Entity\User
                 property: username
     firewalls:
         dev:
@@ -28,9 +28,10 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/profile, roles: ROLE_USER }
+        #  - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
     encoders:
-        App\Entity\Users:
+        App\Entity\User:
             algorithm: bcrypt
             cost: 12

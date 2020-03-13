@@ -4,14 +4,13 @@
 {% block body %}
 
         <div class="container mt-4">
-
             {% if error %}
                 <div class="alert alert-danger">
                     {{error.messageKey | trans(error.messagedata, 'security')}}
                 </div>
             {% endif %}
 
-            <form action="{{path('login')}}" method="">
+            <form action="{{path('login')}}" method="post">
                 <div class="form-group">
                     <label for="username">Nom d'utilisateur</label>
                     <input type="text" name="_username" id="username" value="{{ last_username}}" class="form-control">
