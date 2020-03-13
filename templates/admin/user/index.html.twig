@@ -1,0 +1,15 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block main %}
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ '/Applications/XAMPP/xamppfiles/htdocs/dev/Djangou/src/Controller/Admin/UserController.php'|file_link(0) }}">src/Controller/Admin/UserController.php</a></code></li>
+        <li>Your template at <code><a href="{{ '/Applications/XAMPP/xamppfiles/htdocs/dev/Djangou/templates/admin/user/index.html.twig'|file_link(0) }}">templates/admin/user/index.html.twig</a></code></li>
+    </ul>
+</div>
+{% endblock %}

@@ -31,6 +31,8 @@ class Users implements UserInterface, \Serializable
      * @ORM\Column(type="json")
      */
     private $roles;
+
+    const NB_ITEMS = 25;
     
     public function getId(): ?int
     {

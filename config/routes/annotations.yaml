@@ -1,11 +1,11 @@
-admin:
-    resource: ../../src/Controller/Admin
-    type: annotation
-    prefix: /admin
-
 controllers:
     resource: ../../src/Controller/
     type: annotation
+
+admin:
+    resource: ../../src/Controller/Admin/
+    type: annotation
+    prefix: /admin
 
 kernel:
     resource: ../../src/Kernel.php
