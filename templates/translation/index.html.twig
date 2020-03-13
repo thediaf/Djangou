@@ -8,18 +8,11 @@
     <div class="container mt-4">
     
         {{form_start(form)}}
-            <div class="row mb-3 chd">
+            <div class="row mb-3">
                     {{form_row(form.wordLanguage)}}
                     {{form_row(form.translateLanguage)}}
             </div>
-            {# <div class="input-group">
-                    <div class="input-group-prepend">
-                        {{form_row(form.word)}}
-                        <button class="input-group-text btn btn-primary"> #}
-                            {# <button class="btn btn-primary">Chercher</button> #}
-                        {# </button>
-                    </div>
-            </div> #}
+            
             <div class="input-group mb-3">
                 <div class="form-control"> {{form_row(form.word)}}</div>
                 <div class="input-group-append">
