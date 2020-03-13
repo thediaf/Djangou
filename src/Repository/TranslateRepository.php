@@ -73,6 +73,16 @@ class TranslateRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * TODO: Implements pagination
+     */
+    public function paginate(int $page)
+    {
+        return $this->createQueryBuilder('t')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
 
     public function findWordQuery(): ORMQueryBuilder
     {

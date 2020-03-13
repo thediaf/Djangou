@@ -1,0 +1,44 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Dictionnaire{% endblock %}
+
+{% block sidebar %}
+    {% include "admin/sidebar.html.twig" with { active: 'translate' } %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="langs mt-5">
+            <a href="#" data-toggle="modal" data-target="#addLangModal" class="my-3 btn btn-primary"><i class="fa fa-plus"></i> Ajouter une langue</a>
+            <div class="list-group">
+                <a href="#" class="list-group-item disabled text-dark" aria-disabled="true">
+                    <i class="fa fa-language"></i> Langues
+                </a>
+                {% for lang in languages %}
+                <a href="{{ lang.id }}" class="list-group-item list-group-item-action text-primary">{{ lang.name }}<a>
+                {% endfor %}
+            </div>
+            <div class="modal fade" id="addLangModal" tabindex="-1" role="dialog" aria-labelledby="addLangModalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalCenterTitle">Ajouter une langue</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      ...
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                      <button type="button" class="btn btn-success"><i class="fa fa-check"></i> Enregistrer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
