@@ -3,3 +3,7 @@
         min-height: calc(100vh - 56px);
     }
 }
+
+.results {
+    height: 50px;
+}

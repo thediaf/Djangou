@@ -30,10 +30,20 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                ...
+                                <form method="POST" action="{{ path('admin_add_lang') }}" id="submit-lang-form">
+                                    <div class="form-group">
+                                      <label for="lang">Nouvelle langue</label>
+                                      <input type="text" id="lang" name="lang" class="form-control px-3">
+                                    </div>
+                                    <div class="results">
+                                        <p class="alert alert-success hide"><i class="fa fa-check-circle"></i> <span class="text"></span></p>
+                                        <p class="alert alert-danger hide"><i class="fa fa-exclamation-triangle"></i> <span class="text"></span></p>
+                                        <p class="alert alert-info hide"><i class="fa fa-spinner"></i> Chargement en cours ...</p>
+                                    </div>
+                                </form>
                             </div>
                             <div class="modal-footer d-flex justify-content-between">
-                                <button type="button" class="btn btn-success">
+                                <button type="button" id="submit-lang" class="btn btn-success">
                                     <i class="fa fa-check"></i>
                                     Enregistrer
                                 </button>
