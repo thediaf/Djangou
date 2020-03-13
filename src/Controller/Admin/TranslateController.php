@@ -13,9 +13,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Controller that manage translations
+ */
 class TranslateController extends AbstractController
 {
     /**
+     * Languages listing page
+     * 
      * @Route("/translate", name="admin_translate")
      */
     public function index(LanguageRepository $languageRepository)
@@ -26,6 +31,8 @@ class TranslateController extends AbstractController
     }
 
     /**
+     * Add new language to the database
+     * 
      * @Route("/translate/add-lang", name="admin_add_lang", methods={"POST"})
      */
     public function addLanguage(Request $request, EntityManagerInterface $entityManager): Response
@@ -60,14 +67,16 @@ class TranslateController extends AbstractController
     }
 
     /**
+     * Add new word translation with the given language source and language targets
+     * 
      * @Route("/translate/{id}/add", name="admin_translate_add")
      */
     public function translateAdd(Request $request, Language $language, EntityManagerInterface $entityManager)
     {
-        // sleep(1); // TODO: remove after tests.
-        // if(!$request->isXmlHttpRequest()) {
-        //     throw new \Exception("This method accept only AJAX reuqest");
-        // }
+        sleep(1); // TODO: remove after tests.
+        if(!$request->isXmlHttpRequest()) {
+            throw new \Exception("This method accept only AJAX reuqest");
+        }
 
         $translate = new Translate();
         $form = $this->createForm(TranslateType::class, $translate, [
@@ -104,6 +113,8 @@ class TranslateController extends AbstractController
     }
 
     /**
+     * Words translation listing (with specific language`)
+     * 
      * @Route("/translate/{id}", name="admin_translation_list")
      */
     public function translationList(Request $request, Language $language, TranslateRepository $translateRepository)
