@@ -1,5 +1,5 @@
 (function ($) {
-    $('form').submit(function (e) {
+    $('form[name="search"]').submit(function (e) {
         e.preventDefault();
         var formData = $(this).serialize();
         var results = $('#results');
