@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Language;
 use App\Entity\Search;
 use App\Entity\Translate;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -76,9 +77,11 @@ class TranslateRepository extends ServiceEntityRepository
     /**
      * TODO: Implements pagination
      */
-    public function paginate(int $page)
+    public function paginateByLanguage(Language $language, int $page)
     {
         return $this->createQueryBuilder('t')
+            ->where('t.language = :lang')
+            ->setParameter('lang', $language)
             ->setMaxResults(10)
             ->getQuery()
             ->getResult();

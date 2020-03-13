@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Language;
 use App\Form\Admin\LanguageType;
 use App\Repository\LanguageRepository;
+use App\Repository\TranslateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TranslateController extends AbstractController
 {
     /**
-     * @Route("/admin/translate", name="admin_translate")
+     * @Route("/translate", name="admin_translate")
      */
     public function index(LanguageRepository $languageRepository)
     {
@@ -24,7 +25,7 @@ class TranslateController extends AbstractController
     }
 
     /**
-     * @Route("/admin/translate/add-lang", name="admin_add_lang", methods={"POST"})
+     * @Route("/translate/add-lang", name="admin_add_lang", methods={"POST"})
      */
     public function addLanguage(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -49,10 +50,22 @@ class TranslateController extends AbstractController
             return $this->json([
                 'type' => 'success',
                 'message' => 'La langue a été ajoutée avec succès.',
-                'lang' => $language
+                'lang' => $language,
+                'url' => $this->generateUrl('admin_translation_list', ['id' => $language->getId()])
             ]);
         }
         
         throw new \Exception("Should never be executed");
+    }
+
+    /**
+     * @Route("/translate/{id}", name="admin_translation_list")
+     */
+    public function translationList(Request $request, Language $language, TranslateRepository $translateRepository)
+    {
+        return $this->render('admin/translate/list.html.twig', [
+            'lang' => $language,
+            'translates' => $translateRepository->paginateByLanguage($language, $request->query->get('page', 1))
+        ]);
     }
 }

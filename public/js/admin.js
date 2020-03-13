@@ -31,8 +31,11 @@
                 success.find('.text').text(data.message);
                 success.fadeIn();
 
+                console.log(data);
+                
+
                 $('.langs .list-group').append(
-                    `<a href="${data.lang.id}" class="list-group-item list-group-item-action text-primary">${data.lang.name}<a>`
+                    `<a href="${data.url}" class="list-group-item list-group-item-action text-primary">${data.lang.name}<a>`
                 );
             } else {
                 error.find('.text').text(data.message);

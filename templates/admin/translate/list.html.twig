@@ -1,0 +1,41 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Dictionnaire {{ lang.name }}{% endblock %}
+
+{% block sidebar %}
+    {% include "admin/sidebar.html.twig" with { active: 'language' } %}
+{% endblock %}
+
+{% block content %}
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('admin_index') }}">Accueil</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('admin_translate') }}">Dictionnaire</a></li>
+        <li class="breadcrumb-item active">{{ lang.name }}</li>
+    </ol>
+    
+    <div class="container">
+        <div class="row">
+            <div class="heading w-100 mr-5">
+                <h1 class="h5">
+                    <a href="{{ path('admin_translate') }}"><i class="fa fa-chevron-left"></i></a>
+                    Dictionnaire: <strong>{{ lang.name }}</strong>
+                </h1>
+                <h2 class="h6 font-weight-bold text-under-line mt-3">Liste des mots
+
+                    <a href="" class="btn btn-primary btn-sm float-right"><i class="fa fa-plus"></i> Ajouter une traduction</a>
+                </h2>
+            </div>
+
+            <div class="container px-0">
+                <div class="words d-flex justify-between flex-wrap">
+                    {% for translate in translates %}
+                        <div class="p2 flex-fill">
+                            <a href="">{{ translate.word }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

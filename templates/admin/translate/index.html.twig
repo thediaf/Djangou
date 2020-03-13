@@ -17,7 +17,7 @@
 						Langues
 					</a>
 					{% for lang in languages %}
-						<a href="{{ lang.id }}" class="list-group-item list-group-item-action text-primary">{{ lang.name }}<a>
+						<a href="{{ path('admin_translation_list', {id: lang.id}) }}" class="list-group-item list-group-item-action text-primary">{{ lang.name }}<a>
 					{% endfor %}
 				</div>
                 <div class="modal fade" id="addLangModal" tabindex="-1" role="dialog" aria-labelledby="addLangModalTitle" aria-hidden="true">
