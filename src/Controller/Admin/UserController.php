@@ -20,11 +20,11 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/{id}", name="admin_show")
+     * @Route("/user/{id}", name="admin_user_show")
      */
     public function show(User $user)
     {
-        return $this->render('admin/user/index.html.twig', [
+        return $this->render('admin/user/show.html.twig', [
             'user' => $user,
         ]);
     }

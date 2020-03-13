@@ -1,15 +1,32 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Liste des utilisateurs{% endblock %}
+{% block title %}Liste des utilisateurs
+{% endblock %}
 
 {% block sidebar %}
-    {% include "admin/sidebar.html.twig" with { active: 'users' } %}
+	{% include "admin/sidebar.html.twig" with { active: 'users' } %}
 {% endblock %}
 
 {% block content %}
-<div class="example-wrapper">
-    <pre>
-        {{ dump(users) }}
-    </pre>
-</div>
+	<div class="container mt-5">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Login</th>
+					<th scope="col">Roles</th>
+				</tr>
+			</thead>
+			<tbody>
+                {% for u in users %}
+					<tr>
+						<th scope="row">{{ loop.index }}</th>
+                        <td><a href="{{ path('admin_user_show', {id: u.id}) }}" class="text-decoration-none">@{{ u.username }}</a></td>
+                        <td>{{ u.roles | join(', ') }}</td>
+                    </tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 {% endblock %}
+
