@@ -1,4 +1,11 @@
 security:
+    encoders:
+        App\Entity\User:
+            algorithm: auto
+    role_hierarchy:
+        ROLE_CUSTOMER: ROLE_USER
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         from_database:
@@ -24,6 +31,7 @@ security:
             guard:
                 authenticators:
                     - App\Security\LoginAuthenticator
+                entry_point: App\Security\LoginAuthenticator
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
@@ -33,8 +41,3 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
         #  - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-
-    encoders:
-        App\Entity\User:
-            algorithm: bcrypt
-            cost: 12
