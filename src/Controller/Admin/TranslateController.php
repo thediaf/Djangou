@@ -3,7 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Language;
-use App\Form\Admin\LanguageType;
+use App\Entity\Translate;
+use App\Form\Admin\TranslateType;
 use App\Repository\LanguageRepository;
 use App\Repository\TranslateRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,7 +30,7 @@ class TranslateController extends AbstractController
      */
     public function addLanguage(Request $request, EntityManagerInterface $entityManager): Response
     {
-        sleep(3);
+        sleep(1); // TODO: remove after tests.
         if($request->isXmlHttpRequest()) {
             $langName = $request->request->get('lang');
 
@@ -56,6 +57,50 @@ class TranslateController extends AbstractController
         }
         
         throw new \Exception("Should never be executed");
+    }
+
+    /**
+     * @Route("/translate/{id}/add", name="admin_translate_add")
+     */
+    public function translateAdd(Request $request, Language $language, EntityManagerInterface $entityManager)
+    {
+        // sleep(1); // TODO: remove after tests.
+        // if(!$request->isXmlHttpRequest()) {
+        //     throw new \Exception("This method accept only AJAX reuqest");
+        // }
+
+        $translate = new Translate();
+        $form = $this->createForm(TranslateType::class, $translate, [
+            'source_language' => $language->getName()
+        ]);
+        $form->handleRequest($request);
+
+        if($request->isMethod('POST')) {
+            if($form->isSubmitted() && $form->isValid()) {
+
+                foreach ($translate->getTranslates() as $tr) {
+                    $translated = (new Translate())
+                        ->setWord($tr->getWord())
+                        ->setLanguage($tr->getLanguage())
+                        ->setClasse($tr->getClasse());
+                    $translate->addTranslate($translated);
+
+                    $translate->removeTranslate($tr);
+
+                    $entityManager->persist($translated);
+                }
+                $translate->setLanguage($language);
+                $entityManager->persist($translate);
+                $entityManager->flush();
+
+                return $this->json('success');
+            }
+        }
+
+        return $this->render('admin/translate/_translate_form.html.twig', [
+            'form' => $form->createView(),
+            'lang' => $language
+        ]);
     }
 
     /**

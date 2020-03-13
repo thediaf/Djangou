@@ -2,13 +2,18 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TranslateRepository")
+ * @UniqueEntity(fields={"word"}, message="Ce mot est déjà ajouté.")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Translate implements JsonSerializable
 {
@@ -21,6 +26,7 @@ class Translate implements JsonSerializable
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $word;
 
@@ -73,7 +79,7 @@ class Translate implements JsonSerializable
         return $this->classe;
     }
 
-    public function setClasse(string $classe): self
+    public function setClasse(?string $classe): self
     {
         $this->classe = $classe;
 
@@ -144,6 +150,17 @@ class Translate implements JsonSerializable
         $this->language = $language;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateClasse()
+    {
+        if(!$this->classe) {
+            $this->classe = 'inconnu';
+        }
     }
 
     public function jsonSerialize()

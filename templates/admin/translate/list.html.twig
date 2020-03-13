@@ -3,7 +3,7 @@
 {% block title %}Dictionnaire {{ lang.name }}{% endblock %}
 
 {% block sidebar %}
-    {% include "admin/sidebar.html.twig" with { active: 'language' } %}
+    {% include "admin/sidebar.html.twig" with { active: 'translate' } %}
 {% endblock %}
 
 {% block content %}
@@ -17,20 +17,41 @@
     <div class="container">
         <div class="row">
             <div class="heading w-100 mr-5">
-                <h1 class="h5">
+                <h1 class="h5 mt-2 mb-3 pb-2 border-bottom">
                     <a href="{{ path('admin_translate') }}"><i class="fa fa-chevron-left"></i></a>
                     Dictionnaire: <strong>{{ lang.name }}</strong>
                 </h1>
                 <h2 class="h6 font-weight-bold text-under-line mt-3">Liste des mots
-
-                    <a href="" class="btn btn-primary btn-sm float-right"><i class="fa fa-plus"></i> Ajouter une traduction</a>
+                    <a href="#" data-toggle="modal" data-target="#addTranslateModal" data-resolve-url="{{ path('admin_translate_add', {id: lang.id}) }}" class="btn btn-primary btn-sm float-right"><i class="fa fa-plus"></i> Ajouter une traduction</a>
                 </h2>
+            </div>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="addTranslateModal" tabindex="-1" role="dialog" aria-labelledby="addTranslateTitleModal" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ajouter une traduction</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                        </div>
+                        <div class="modal-footer">
+                            <p class="success text-success hide mr-sm-5"><i class="fa fa-check-circle"></i> Le mot a été ajouté.</p>
+                            <p class="info text-info hide mr-sm-5"><i class="fa fa-spinner"></i> Chargement en cours ...</p>
+                            <p class="danger text-danger hide mr-sm-5"><i class="fa fa-exclamation-triangle"></i> Erreur interne.</p>
+                            <button type="button" class="btn btn-sm btn-secondary float-right" data-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="container px-0">
-                <div class="words d-flex justify-between flex-wrap">
+                <div class="row">
                     {% for translate in translates %}
-                        <div class="p2 flex-fill">
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
                             <a href="">{{ translate.word }}</a>
                         </div>
                     {% endfor %}

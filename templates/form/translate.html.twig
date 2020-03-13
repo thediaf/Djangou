@@ -1,0 +1,12 @@
+{% block translate_word_widget %}
+<div id="translate_translates___name__">
+    <div class="form-group row">
+        <div class="col-sm-4">
+            {{ form_widget(form.language, {attr: {class: 'custom-select'}}) }}
+        </div>
+        <div class="col-sm-8">
+            {{ form_widget(form.word, {attr: {placeholder: 'Traduction du mot'}}) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -7,3 +7,12 @@
 .results {
     height: 50px;
 }
+
+.form-control {
+    height: initial;
+    padding: .5rem 1rem;
+}
+
+.cursor-progress {
+    cursor: progress;
+}

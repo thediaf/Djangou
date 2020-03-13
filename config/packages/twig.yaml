@@ -4,5 +4,9 @@ twig:
     strict_variables: '%kernel.debug%'
     exception_controller: null
 
+    form_themes:
+        - 'bootstrap_4_layout.html.twig'
+        - 'form/translate.html.twig'
+
     globals:
         App: '%app%'
