@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Administration | {{ App.name }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="main-warpper">
+        <div class="row">
+            <div class="col-md-3 col-sm-4 mx-0">
+                {% include "admin/sidebar.html.twig" %}
+            </div>
+            <div class="col-md-9 col-sm-4 main">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
