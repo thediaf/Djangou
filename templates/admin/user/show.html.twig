@@ -1,0 +1,30 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}@{{ user.username }} - Profil
+{% endblock %}
+
+{% block sidebar %}
+	{% include "admin/sidebar.html.twig" with { active: 'users' } %}
+{% endblock %}
+
+{% block content %}
+	<div class="container mt-5">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Login</th>
+					<th scope="col">Roles</th>
+				</tr>
+			</thead>
+			<tbody>
+                <tr>
+                    <th scope="row">{{ user.id }}</th>
+                    <td>@{{ user.username }}</td>
+                    <td>{{ user.roles | join(', ') }}</td>
+                </tr>
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
+
