@@ -51,6 +51,11 @@ class Translate implements JsonSerializable
      */
     private $translates;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isSuggestion = false;
+
     public function __construct()
     {
         $this->words = new ArrayCollection();
@@ -174,5 +179,17 @@ class Translate implements JsonSerializable
             'classe' => $this->classe,
             'word' => $this->word
         ];
+    }
+
+    public function getIsSuggestion(): ?bool
+    {
+        return $this->isSuggestion;
+    }
+
+    public function setIsSuggestion(?bool $isSuggestion): self
+    {
+        $this->isSuggestion = $isSuggestion;
+
+        return $this;
     }
 }

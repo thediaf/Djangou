@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -33,6 +35,16 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="json")
      */
     private $roles = [];
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Suggestion", mappedBy="user")
+     */
+    private $suggestions;
+
+    public function __construct()
+    {
+        $this->suggestions = new ArrayCollection();
+    }
 
     const NB_ITEMS = 25;
     
@@ -132,6 +144,37 @@ class User implements UserInterface, \Serializable
             $this->username,
             $this->password
         ) = unserialize($serialized, ['allowed_classes' => false]);   
+    }
+
+    /**
+     * @return Collection|Suggestion[]
+     */
+    public function getSuggestions(): Collection
+    {
+        return $this->suggestions;
+    }
+
+    public function addSuggestion(Suggestion $suggestion): self
+    {
+        if (!$this->suggestions->contains($suggestion)) {
+            $this->suggestions[] = $suggestion;
+            $suggestion->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSuggestion(Suggestion $suggestion): self
+    {
+        if ($this->suggestions->contains($suggestion)) {
+            $this->suggestions->removeElement($suggestion);
+            // set the owning side to null (unless already changed)
+            if ($suggestion->getUser() === $this) {
+                $suggestion->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
     
