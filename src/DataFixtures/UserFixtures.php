@@ -2,27 +2,40 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Users;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+//use Symfony\Componen\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface as EncoderUserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
 {
 
     private $encoder;
 
-    public function __construct(UserPasswordEncoderInterface $encoder)
+    public function __construct(EncoderUserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
     }
     public function load(ObjectManager $manager)
     {
-        $user = new Users();
-        $user->setUsername('demo');
-        $user->setPassword($this->encoder->encodePassword($user, 'demo'));
-        $user->setRoles([0]);
-        $manager->persist($user);
+        foreach ($this->getData() as [$username, $password, $roles]) {
+            $user = (new User())
+                ->setUsername($username)
+                ->setRoles($roles);
+            $user->setPassword($this->encoder->encodePassword($user, $password));
+
+            $manager->persist($user);
+        }
+
         $manager->flush();
+    }
+
+    public function getData(): array
+    {
+        return [
+            ['demo', 'demo', ['ROLE_USER']],
+            ['admin', 'admin', ['ROLE_ADMIN']]
+        ];
     }
 }

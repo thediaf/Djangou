@@ -7,7 +7,6 @@ use App\Entity\Search;
 use App\Entity\Translate;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder as ORMQueryBuilder;
 
 
