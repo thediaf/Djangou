@@ -32,7 +32,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="json")
      */
-    private $roles;
+    private $roles = [];
 
     const NB_ITEMS = 25;
     
