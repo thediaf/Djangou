@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\HistoryRepository")
+ * @ORM\HaslifeCycleCallbacks()
  */
 class History
 {
@@ -90,9 +91,12 @@ class History
         return $this->searchedAt;
     }
 
-    public function setSearchedAt(\DateTimeInterface $searchedAt): self
+    /**
+     * @ORM\PrePersist
+     */
+    public function setSearchedAt(): self
     {
-        $this->searchedAt = $searchedAt;
+        $this->searchedAt = new \DateTime();
 
         return $this;
     }

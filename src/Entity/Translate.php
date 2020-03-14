@@ -162,6 +162,11 @@ class Translate implements JsonSerializable
         return !empty($this->words) ? $this->words : $this->translates;
     }
 
+    public function getAll(): array
+    {
+        return [...$this->words, ...$this->translates];
+    }
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -191,5 +196,22 @@ class Translate implements JsonSerializable
         $this->isSuggestion = $isSuggestion;
 
         return $this;
+    }
+
+    public function getTranslateTarget(): ?Translate
+    {
+        foreach ($this->translates as $translate) {
+            if($translate->getLanguage() == $this->getLanguage()) {
+                return $translate;
+            }
+        }
+
+        foreach ($this->words as $translate) {
+            if($translate->getLanguage() == $this->getLanguage()) {
+                return $translate;
+            }
+        }
+
+        return null;
     }
 }
