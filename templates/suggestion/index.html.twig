@@ -1,37 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Suggestion index{% endblock %}
+{% block title %}Suggérer des traductions{% endblock %}
 
 {% block body %}
-    <h1>Suggestion index</h1>
+    <h1 class="h2 my-4 text-primary d-flex justify-content-between">
+        Mes suggestions
+        <a href="{{ path('suggestion_new') }}" class="btn btn-primary">
+            <i class="fa fa-plus"></i>
+            Ajouter une suggestion
+        </a>
+    </h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>SuggestedAt</th>
-                <th>AcceptedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for suggestion in suggestions %}
-            <tr>
-                <td>{{ suggestion.id }}</td>
-                <td>{{ suggestion.suggestedAt ? suggestion.suggestedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ suggestion.acceptedAt ? suggestion.acceptedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('suggestion_show', {'id': suggestion.id}) }}">show</a>
-                    <a href="{{ path('suggestion_edit', {'id': suggestion.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('suggestion_new') }}">Create new</a>
+    {% if suggestions %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Mot suggéré</th>
+                    <th>Date ajoutée</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for suggestion in suggestions %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ suggestion.word }} <span class="badge badge-success">{{ suggestion.language }}</span> </td>
+                    <td>{{ suggestion.suggestedAt ? suggestion.suggestedAt|date('Y-m-d H:i') : '' }}</td>
+                    <td><span class="badge badge-{{ suggestion.badgeStatus }}">{{ suggestion.status }}</span></td>
+                    <td>
+                        <a href="{{ path('suggestion_show', {'id': suggestion.id}) }}">show</a>
+                        <a href="{{ path('suggestion_edit', {'id': suggestion.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="alert alert-info">Vous n'avez pas encore ajouté de suggestions.</p>
+    {% endif %}
 {% endblock %}

@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,14 +34,15 @@ class Suggestion
     private $acceptedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Translate")
-     */
-    private $translations;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $status;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Translate")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $translate;
 
     const PENDING = 'pending';
     const ACCTEPED = 'accepted';
@@ -51,10 +50,6 @@ class Suggestion
 
     const STATUS = [self::PENDING, self::ACCTEPED, self::REJECTED];
 
-    public function __construct()
-    {
-        $this->translations = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -100,32 +95,6 @@ class Suggestion
         return $this;
     }
 
-    /**
-     * @return Collection|Translate[]
-     */
-    public function getTranslations(): Collection
-    {
-        return $this->translations;
-    }
-
-    public function addTranslation(Translate $translation): self
-    {
-        if (!$this->translations->contains($translation)) {
-            $this->translations[] = $translation;
-        }
-
-        return $this;
-    }
-
-    public function removeTranslation(Translate $translation): self
-    {
-        if ($this->translations->contains($translation)) {
-            $this->translations->removeElement($translation);
-        }
-
-        return $this;
-    }
-
     public function getStatus(): ?string
     {
         return $this->status;
@@ -146,4 +115,39 @@ class Suggestion
         return $this;
     }
 
+    public function getTranslate(): ?Translate
+    {
+        return $this->translate;
+    }
+
+    public function setTranslate(?Translate $translate): self
+    {
+        $this->translate = $translate;
+
+        return $this;
+    }
+
+    public function getWord(): ?string
+    {
+        return $this->translate ? $this->translate->getWord() : null;
+    }
+
+    public function getLanguage(): ?Language
+    {
+        return $this->translate ? $this->translate->getLanguage() : null;
+    }
+
+    public function getBadgeStatus(): string
+    {
+        switch($this->status) {
+            case self::PENDING:
+                return 'warning';
+            case self::REJECTED:
+                return 'danger';
+            case self::ACCTEPED:
+                return 'success';
+            default:
+                return 'default';
+        }
+    }
 }
