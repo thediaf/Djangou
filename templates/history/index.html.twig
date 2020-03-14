@@ -3,10 +3,10 @@
 {% block title %}Votre historique de recherche{% endblock %}
 
 {% block body %}
-    <h1 class="my-4 text-primary">
+    <h4 class="blue-text">
         <i class="fa fa-history"></i>
         Votre historique de recherche
-    </h1>
+    </h4>
 
     {% if histories %}
     <table class="table">
@@ -25,14 +25,20 @@
             {% set memorized = history.isMemorised %}
             <tr data-status-update-url="{{ path('history_update_status', {id: history.id}) }}">
                 <td>{{ loop.index }}</td>
-                <td>{{ history.source.word }} <span class="badge badge-dark">{{ history.source.language }}</span></td>
-                <td>{{ history.target.word }} <span class="badge badge-info">{{ history.target.language }}</span></td>
+                <td>
+                    {{ history.source.word }}
+                    <span class="new badge blue" data-badge-caption="{{ history.source.language }}"></span>
+                </td>
+                <td>
+                    {{ history.target.word }}
+                    <span class="new badge" data-badge-caption="{{ history.target.language }}"></span>
+                </td>
                 <td>{{ history.searchedAt ? history.searchedAt|date('Y-m-d H:i') : '' }}</td>
                 <td>
-                    <label class="text-{{ memorized ? 'success' : 'default' }}" data-memorized="Memorisé" data-not-memorized="Non memorisé" for="history-{{ history.id }}">
-                        {{ memorized ? 'Memorisé' : 'Non memorisé' }}
+                    <label>
+                        <input type="checkbox" {% if memorized %}checked="checked"{% endif %} />
+                        <span class="{{ memorized ? 'green' : 'black' }}-text" >Memorisé</span>
                     </label>
-                    <input type="checkbox" {% if memorized %}checked{% endif %} class="custom-checkbox" id="history-{{ history.id }}">
                 </td>
                 {# <td>
                     <a href="{{ path('history_show', {'id': history.id}) }}">Afficher</a>
@@ -55,13 +61,13 @@
             
             inputs.each(function() {
                 const input = $(this);
-                const label = input.parent().find('label');
+                const label = input.parent().find('span');
 
                 input.change(function(){
                     const isMemorized = input.is(':checked');
                     
                     currentRequest = $.ajax({
-                        url: input.parent().parent().data('status-update-url'),
+                        url: input.parent().parent().parent().data('status-update-url'),
                         method: "POST",
                         dataType: 'JSON',
                         data: {isMemorized},
@@ -74,11 +80,10 @@
                     })
                     .done(function(data) {
                         if(data === true) {
-                            label.text(label.data(`${!isMemorized ? 'not-' : ''}memorized`));
                             if(isMemorized) {
-                                label.removeClass('text-default').addClass('text-success');
+                                label.removeClass('black-text').addClass('green-text');
                             } else {
-                                label.removeClass('text-success').addClass('text-default');
+                                label.removeClass('green-text').addClass('black-text');
                             }
                         } else {
                             console.log(data);

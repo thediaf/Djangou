@@ -3,13 +3,13 @@
 {% block title %}Suggérer des traductions{% endblock %}
 
 {% block body %}
-    <h1 class="h2 my-4 text-primary d-flex justify-content-between">
+    <h4 class="blue-text">
         Mes suggestions
         <a href="{{ path('suggestion_new') }}" class="btn btn-primary">
             <i class="fa fa-plus"></i>
             Ajouter une suggestion
         </a>
-    </h1>
+    </h4>
 
     {% if suggestions %}
         <table class="table">
