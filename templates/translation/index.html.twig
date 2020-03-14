@@ -2,34 +2,39 @@
 
 {% block title %}{{ App.name }}{% endblock %}
 
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+{% endblock %}
+
 {% block body %}
 
-    
-    <div class="container mt-4">
-    
-        {{form_start(form)}}
-            <div class="row mb-3">
-                    {{form_row(form.wordLanguage)}}
-                    {{form_row(form.translateLanguage)}}
-            </div>
+    <h1 class="center">Base de donnees de traduction</h1>
             
-            <div class="input-group mb-3">
-                <div class="form-control"> {{form_row(form.word)}}</div>
-                <div class="input-group-append">
-                    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
+    <div class="container center mt-2">
+    
+            {{form_start(form)}}
+                <div class="row">
+                        <div class="col s1">{{form_row(form.wordLanguage)}}</div>
+                        <div class="col s1">{{form_row(form.translateLanguage)}}</div>
                 </div>
-            </div>
-            
-        {{form_end(form)}}
+                
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="form-contr"> {{form_row(form.word)}}</div>
+                    <div class="input-group-prepend">
+                        <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            {{form_end(form)}}
         
-        <div class="row">
-         {% if wordTranslate is defined and wordTranslate %}
-             {{wordTranslate.word}}    
-        {% endif %}  
+        {# <div class="row result"> #}
+            {# {% if wordTranslate is defined and wordTranslate %}
+                {{wordTranslate.word}}    
+            {% endif %}   #}
             <div id="results">
-                <div class="def hide">Définition: <span class="data"></span></div>
                 <div class="classe hide">Classe: <span class="data"></span></div>
-                <div class="undefined hide text-danger">Définition introuvable</div>
+                <div class="def hide">Traduction: <span class="data"></span></div>
+                <div class="undefined hide text-danger">Mot introuvable</div>
             </div>
         {# {% if wordTranslate is defined and wordTranslate %}
             {% for  in wordTranslate %}
@@ -46,9 +51,8 @@
                 
             {# {% endfor %} #}
           
-         {% if wordTranslate is defined and wordTranslate %}
+         {# {% if wordTranslate is defined and wordTranslate %}
              {{wordTranslate.word}}    
-        {% endif %}  
+        {% endif %}   #}
         </div>
-    </div>
 {% endblock %}
