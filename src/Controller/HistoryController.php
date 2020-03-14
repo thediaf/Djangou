@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\History;
 use App\Repository\HistoryRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,6 +36,27 @@ class HistoryController extends AbstractController
         return $this->render('history/show.html.twig', [
             'history' => $history,
         ]);
+    }
+
+    /**
+     * @Route("/{id}/update-status", name="history_update_status", methods={"POST"})
+     */
+    public function updateStatus(History $history, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if(!$request->isXmlHttpRequest()) {
+            throw new \Exception("This action support only ajax request");
+        }
+
+        $isMemorized = $request->request->get('isMemorized', null);
+
+        if($isMemorized === null) {
+            return $this->json(null);
+        }
+        
+        $history->setIsMemorised($isMemorized == "false" ? false : true);
+        $entityManager->flush();
+        
+        return $this->json(true);
     }
 
     /**

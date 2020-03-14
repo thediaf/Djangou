@@ -20,18 +20,19 @@
                 {# <th>actions</th> #}
             </tr>
         </thead>
-        <tbody>
+        <tbody class="histories">
         {% for history in histories %}
-            <tr>
+            {% set memorized = history.isMemorised %}
+            <tr data-status-update-url="{{ path('history_update_status', {id: history.id}) }}">
                 <td>{{ loop.index }}</td>
-                <td>{{ history.source.word }} <span class="badge badge-primary">{{ history.source.language }}</span></td>
-                <td>{{ history.target.word }} <span class="badge badge-success">{{ history.target.language }}</span></td>
-                <td>{{ history.searchedAt ? history.searchedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ history.source.word }} <span class="badge badge-dark">{{ history.source.language }}</span></td>
+                <td>{{ history.target.word }} <span class="badge badge-info">{{ history.target.language }}</span></td>
+                <td>{{ history.searchedAt ? history.searchedAt|date('Y-m-d H:i') : '' }}</td>
                 <td>
-                    <label data-memorized="Memorisé" data-not-memorized="Non memorisé" for="history-{{ history.id }}">
-                        {{ history.isMemorised ? 'Memorisé' : 'Non memorisé' }}
+                    <label class="text-{{ memorized ? 'success' : 'default' }}" data-memorized="Memorisé" data-not-memorized="Non memorisé" for="history-{{ history.id }}">
+                        {{ memorized ? 'Memorisé' : 'Non memorisé' }}
                     </label>
-                    <input type="checkbox" name="" class="custom-checkbox" id="history-{{ history.id }}">
+                    <input type="checkbox" {% if memorized %}checked{% endif %} class="custom-checkbox" id="history-{{ history.id }}">
                 </td>
                 {# <td>
                     <a href="{{ path('history_show', {'id': history.id}) }}">Afficher</a>
@@ -44,4 +45,50 @@
     {% else %}
         <p class="alert alert-info">Votre historique de recherche est vide.</p>
     {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        (function ($) {
+            var inputs = $('.histories input[type="checkbox"]');
+            let currentRequest = null;
+            
+            inputs.each(function() {
+                const input = $(this);
+                const label = input.parent().find('label');
+
+                input.change(function(){
+                    const isMemorized = input.is(':checked');
+                    
+                    currentRequest = $.ajax({
+                        url: input.parent().parent().data('status-update-url'),
+                        method: "POST",
+                        dataType: 'JSON',
+                        data: {isMemorized},
+
+                        beforeSend: function() {
+                            if(currentRequest) {
+                                currentRequest.abort();
+                            }
+                        }
+                    })
+                    .done(function(data) {
+                        if(data === true) {
+                            label.text(label.data(`${!isMemorized ? 'not-' : ''}memorized`));
+                            if(isMemorized) {
+                                label.removeClass('text-default').addClass('text-success');
+                            } else {
+                                label.removeClass('text-success').addClass('text-default');
+                            }
+                        } else {
+                            console.log(data);
+                        }
+                    })
+                    .fail(function(data) {
+                        console.log(data);
+                    });
+                });
+            });
+        })(jQuery);
+    </script>
 {% endblock %}

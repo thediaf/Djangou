@@ -45,24 +45,24 @@ class History
      */
     private $isMemorised = false;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getUser(): ?User
+    public function getUser(): User
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(User $user): self
     {
         $this->user = $user;
 
         return $this;
     }
 
-    public function getSource(): ?Translate
+    public function getSource(): Translate
     {
         return $this->source;
     }
@@ -74,7 +74,7 @@ class History
         return $this;
     }
 
-    public function getTarget(): ?Translate
+    public function getTarget(): Translate
     {
         return $this->target;
     }
@@ -101,12 +101,12 @@ class History
         return $this;
     }
 
-    public function getIsMemorised(): ?bool
+    public function getIsMemorised(): bool
     {
         return $this->isMemorised;
     }
 
-    public function setIsMemorised(?bool $isMemorised): self
+    public function setIsMemorised(bool $isMemorised): self
     {
         $this->isMemorised = $isMemorised;
 
