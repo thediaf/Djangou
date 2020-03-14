@@ -36,4 +36,5 @@
         // console.log(form.serialize());
         return false;
     });
+    $('select').formSelect();    
 })(jQuery);

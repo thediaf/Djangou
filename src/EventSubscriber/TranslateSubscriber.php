@@ -3,6 +3,7 @@
 namespace App\EventSubscriber;
 
 use App\Entity\History;
+use App\Entity\User;
 use App\Event\TranslateEvent;
 use App\Event\TranslateEvents;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,7 +23,7 @@ class TranslateSubscriber implements EventSubscriberInterface
 
     public function onTranslateRequested(TranslateEvent $event)
     {
-        if($this->user) {
+        if($this->user instanceof User) {
             $history = (new History())
                 ->setSource($event->getSource())
                 ->setTarget($event->getTarget())

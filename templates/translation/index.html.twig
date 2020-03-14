@@ -15,8 +15,10 @@
     
             {{form_start(form)}}
                 <div class="row">
-                        <div class="col s1">{{form_row(form.wordLanguage)}}</div>
-                        <div class="col s1">{{form_row(form.translateLanguage)}}</div>
+                    <div class="input-field col s12">
+                        {{ form_row(form.wordLanguage) }}
+                    </div>
+                    {{ form_row(form.translateLanguage) }}
                 </div>
                 
                 <div class="input-group mb-2 mr-sm-2">
@@ -32,9 +34,9 @@
                 {{wordTranslate.word}}    
             {% endif %}   #}
             <div id="results">
-                <div class="classe hide">Classe: <span class="data"></span></div>
-                <div class="def hide">Traduction: <span class="data"></span></div>
-                <div class="undefined hide text-danger">Mot introuvable</div>
+                <div class="classe bs-hide">Classe: <span class="data"></span></div>
+                <div class="def bs-hide">Traduction: <span class="data"></span></div>
+                <div class="undefined bs-hide text-danger">Mot introuvable</div>
             </div>
         {# {% if wordTranslate is defined and wordTranslate %}
             {% for  in wordTranslate %}
