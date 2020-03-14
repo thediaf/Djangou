@@ -164,7 +164,8 @@ class Translate implements JsonSerializable
 
     public function getAll(): array
     {
-        return [...$this->words, ...$this->translates];
+        return array_merge($this->words->toArray(), $this->translates->toArray());
+        // return [...$this->words, ...$this->translates];
     }
 
     /**
