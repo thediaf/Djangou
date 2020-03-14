@@ -1,9 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title 'Se connecter'%}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+{% endblock %}
+
+
 {% block body %}
 
-        <div class="container mt-4">
+        <div class="container mt-4 center">
             <h1>Connexion</h1>
             <form action="{{path('login')}}" method="post">
                 {% if error %}
@@ -37,4 +43,9 @@
             </form>
         </div>
 
-{% endblock%}
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+{% endblock %}
