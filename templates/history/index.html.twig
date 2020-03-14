@@ -1,37 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}History index{% endblock %}
+{% block title %}Votre historique de recherche{% endblock %}
 
 {% block body %}
-    <h1>History index</h1>
+    <h1 class="my-4 text-primary">
+        <i class="fa fa-history"></i>
+        Votre historique de recherche
+    </h1>
 
+    {% if histories %}
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>SearchedAt</th>
-                <th>IsMemorised</th>
-                <th>actions</th>
+                <th>#</th>
+                <th>Mot cherché</th>
+                <th>Traduction</th>
+                <th>Date cherchée</th>
+                <th>Statut</th>
+                {# <th>actions</th> #}
             </tr>
         </thead>
         <tbody>
         {% for history in histories %}
             <tr>
-                <td>{{ history.id }}</td>
+                <td>{{ loop.index }}</td>
+                <td>{{ history.source.word }} <span class="badge badge-primary">{{ history.source.language }}</span></td>
+                <td>{{ history.target.word }} <span class="badge badge-success">{{ history.target.language }}</span></td>
                 <td>{{ history.searchedAt ? history.searchedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ history.isMemorised ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('history_show', {'id': history.id}) }}">show</a>
-                    <a href="{{ path('history_edit', {'id': history.id}) }}">edit</a>
+                    <label data-memorized="Memorisé" data-not-memorized="Non memorisé" for="history-{{ history.id }}">
+                        {{ history.isMemorised ? 'Memorisé' : 'Non memorisé' }}
+                    </label>
+                    <input type="checkbox" name="" class="custom-checkbox" id="history-{{ history.id }}">
                 </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
+                {# <td>
+                    <a href="{{ path('history_show', {'id': history.id}) }}">Afficher</a>
+                    <a href="{{ path('history_edit', {'id': history.id}) }}">Supprimer</a>
+                </td> #}
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('history_new') }}">Create new</a>
+    {% else %}
+        <p class="alert alert-info">Votre historique de recherche est vide.</p>
+    {% endif %}
 {% endblock %}
