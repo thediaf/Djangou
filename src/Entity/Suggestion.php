@@ -151,11 +151,11 @@ class Suggestion
     {
         switch($this->status) {
             case self::PENDING:
-                return 'warning';
+                return 'amber';
             case self::REJECTED:
-                return 'danger';
+                return 'red';
             case self::ACCTEPED:
-                return 'success';
+                return 'green';
             default:
                 return 'default';
         }

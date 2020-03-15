@@ -78,6 +78,7 @@ class SuggestionController extends AbstractController
     public function edit(Request $request, Suggestion $suggestion): Response
     {
         $form = $this->createForm(SuggestionType::class, $suggestion);
+        $form->get('translate')->add('language');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

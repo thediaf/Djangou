@@ -19,18 +19,23 @@
                     <th>Mot suggéré</th>
                     <th>Date ajoutée</th>
                     <th>Statut</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
             {% for suggestion in suggestions %}
                 <tr>
                     <td>{{ loop.index }}</td>
-                    <td>{{ suggestion.word }} <span class="badge badge-success">{{ suggestion.language }}</span> </td>
-                    <td>{{ suggestion.suggestedAt ? suggestion.suggestedAt|date('Y-m-d H:i') : '' }}</td>
-                    <td><span class="badge badge-{{ suggestion.badgeStatus }}">{{ suggestion.status }}</span></td>
+                    <td>{{ suggestion.word }} <span class="badge new" data-badge-caption="{{ suggestion.language }}"></span> </td>
+                    <td>{{ suggestion.suggestedAt ? (suggestion.suggestedAt|date('Y-m-d H') ~ 'h ' ~ suggestion.suggestedAt|date('i')) : '' }}</td>
+                    <td><span class="badge new {{ suggestion.badgeStatus }}" data-badge-caption="{{ ('status.' ~ suggestion.status)|trans }}"></span></td>
                     <td>
-                        <a href="{{ path('suggestion_show', {'id': suggestion.id}) }}">show</a>
-                        <a href="{{ path('suggestion_edit', {'id': suggestion.id}) }}">edit</a>
+                        <a class="btn waves-effect" href="{{ path('suggestion_show', {'id': suggestion.id}) }}">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <a class="btn orange waves-effect" href="{{ path('suggestion_edit', {'id': suggestion.id}) }}">
+                            <i class="fa fa-edit"></i>
+                        </a>
                     </td>
                 </tr>
             {% endfor %}
