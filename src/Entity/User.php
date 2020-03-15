@@ -194,8 +194,17 @@ class User implements UserInterface, \Serializable
     public function addHistory(History $history): self
     {
         if (!$this->histories->contains($history)) {
-            $this->histories[] = $history;
-            $history->setUser($this);
+            $found = false;
+            foreach ($this->histories as $h) {
+                if($h->getSource()->getId() == $history->getSource()->getId() || $h->getTarget() == $history->getTarget()){
+                    $found = true;
+                    break;
+                }
+            }
+            if(!$found) {
+                $this->histories[] = $history;
+                $history->setUser($this);
+            }
         }
 
         return $this;

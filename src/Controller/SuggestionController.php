@@ -32,6 +32,7 @@ class SuggestionController extends AbstractController
     {
         $suggestion = new Suggestion();
         $form = $this->createForm(SuggestionType::class, $suggestion);
+        $form->get('translate')->add('language');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

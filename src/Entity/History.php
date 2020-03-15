@@ -24,13 +24,13 @@ class History
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Translate", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Translate", cascade={"persist", "remove", "merge"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $source;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Translate", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Translate", cascade={"persist", "merge"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $target;
