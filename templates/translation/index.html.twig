@@ -6,50 +6,31 @@
 
     <h1 class="center">Base de donnees de traduction</h1>
             
-    <div class="container center mt-2">
+    <div class="container cont mt-2">
     
             {{form_start(form)}}
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col offset-l1 s2">
                         {{ form_row(form.wordLanguage) }}
                     </div>
-                    {{ form_row(form.translateLanguage) }}
+                    <div class="input-field col s2">
+                        {{ form_row(form.translateLanguage) }}
+                    </div>
                 </div>
-                
-                <div class="input-group mb-2 mr-sm-2">
-                    <div class="form-contr"> {{form_row(form.word)}}</div>
-                    <div class="input-group-prepend">
-                        <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
+                <div class="row">
+                    <div class="input-group col s7">
+                        {{form_row(form.word)}}</div>
+                        <div class="input-group-prepend col s0">
+                            <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
+                        </div>
                     </div>
                 </div>
             {{form_end(form)}}
         
-        {# <div class="row result"> #}
-            {# {% if wordTranslate is defined and wordTranslate %}
-                {{wordTranslate.word}}    
-            {% endif %}   #}
             <div id="results">
                 <div class="classe bs-hide">Classe: <span class="data"></span></div>
                 <div class="def bs-hide">Traduction: <span class="data"></span></div>
                 <div class="undefined bs-hide text-danger">Mot introuvable</div>
             </div>
-        {# {% if wordTranslate is defined and wordTranslate %}
-            {% for  in wordTranslate %}
-                
-            {% endfor %}
-            {{wordTranslate.word}}    
-
-        {% endif %}
-            {% for language in languages %}
-                <div class="col-md-4">{{wordTranslate.word}}</div>
-                {% for translate in language.translates %}
-                    <div class="col-md-4">{{translate.word}}</div>    
-                {% endfor %}
-                
-            {# {% endfor %} #}
-          
-         {# {% if wordTranslate is defined and wordTranslate %}
-             {{wordTranslate.word}}    
-        {% endif %}   #}
         </div>
 {% endblock %}

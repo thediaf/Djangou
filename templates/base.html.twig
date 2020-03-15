@@ -10,53 +10,44 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <div class="{% block main_container_class %}container{% endblock %}">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="{{ path('translation') }}">{{ App.name }}</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    
-                    {% if app.user %}
-                        <ul class="navbar-nav mr-auto">
+        {# <div class="{% block main_container_class %}container{% endblock %}"> #}
+            <nav>
+                <div class="nav-wrapper">
+                    <a class="brand-logo" href="{{ path('translation') }}">{{ App.name }}</a>
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">Menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        {% if app.user %}
                             {% if is_granted('ROLE_ADMIN') %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('admin_index') }}">Administration</a>
-                                </li>
+                                <li><a href="{{ path('admin_index') }}">Administration</li>
                             {% endif %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('history_index') }}">Historique</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('suggestion_index') }}">Suggestion</a>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('logout') }}">Se deconnecter</a>
-                            </li>
-                        </ul>
-                    {% else %}
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('register') }}">S'inscrire</a>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('login') }}">Se connecter</a>
-                            </li>
-                        </ul>
-                    {% endif %}
-                    
+                            
+                            <li><a href="{{ path('history_index') }}">Historique</a></li>
+                            <li><a href="{{ path('suggestion_index') }}">Suggestion</a></li>
+                            <li><a href="{{ path('logout') }}">Se deconnecter</a></li>
+                        {% else %}
+                            <li><a href="{{ path('register') }}">S'inscrire</a></li>
+                            <li><a href="{{ path('login') }}">Se connecter</a></li>                            
+                        {% endif %}                    
+                    </ul>
                 </div>
-
             </nav>
+
+            <ul class="sidenav" id="mobile-demo">
+                {% if app.user %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="{{ path('admin_index') }}">Administration</li>
+                    {% endif %}                    
+                    <li><a href="{{ path('history_index') }}">Historique</a></li>
+                    <li><a href="{{ path('suggestion_index') }}">Suggestion</a></li>
+                    <li><a href="{{ path('logout') }}">Se deconnecter</a></li>
+                {% else %}
+                    <li><a href="{{ path('register') }}">S'inscrire</a></li>
+                    <li><a href="{{ path('login') }}">Se connecter</a></li> 
+                {% endif %}
+            </ul>
         {% block body %}{% endblock %}
         
-        </div>
+        {# </div> #}
         <script src="{{ asset('js/jquery-1.11.2.min.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script src="{{ asset('fontawesome/js/all.js') }}"></script>
