@@ -8,18 +8,24 @@
 {% endblock %}
 
 {% block content %}
-	<div class="row">
-		<div class="col-md-8 mx-auto">
+	<div class="">
+		<div class="">
 			<div class="langs mt-5">
-				<div class="list-group">
+				{# <div class="list-group">
 					<a href="#" class="list-group-item disabled text-dark" aria-disabled="true">
 						<i class="fa fa-language"></i>
 						Langues
 					</a>
+                </div> #}
+                <h1><i class="fa fa-language"></i> La liste des langues</h1>
+                    <div class="row">
+					<div class="collection col s8">
+                    {# <div class="collection-header"></div> #}
 					{% for lang in languages %}
-						<a href="{{ path('admin_translation_list', {id: lang.id}) }}" class="list-group-item list-group-item-action text-primary">{{ lang.name }}<a>
-					{% endfor %}
-				</div>
+                    	<a href="{{ path('admin_translation_list', {id: lang.id}) }}" class="collection-item">{{ lang.name }}</a>
+                    {% endfor %}
+				    </div></div>
+                    
                 <div class="modal fade" id="addLangModal" tabindex="-1" role="dialog" aria-labelledby="addLangModalTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">

@@ -1,5 +1,5 @@
 @media (min-width: 576px) {
-    .sidebar{ 
+    .sidebar {
         min-height: calc(100vh - 56px);
     }
 }
@@ -21,7 +21,7 @@ input {
     background-clip: padding-box;
     border: 1px solid #ced4da;
     border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 input:focus {
@@ -34,7 +34,19 @@ input:focus {
     cursor: progress;
 }
 
-
 .hide {
     display: none;
+}
+
+.sidenav a {
+    font-size: 1.1em !important;
+}
+
+.sidenav a.active {
+    background-color: #039be5;
+    color: white;
+}
+
+.sidenav a:hover {
+    color: #212121;
 }

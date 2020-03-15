@@ -222,5 +222,10 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
+
+    public function hasRole($role)
+    {
+        return in_array($role, $this->roles);  
+    }
 }
     
