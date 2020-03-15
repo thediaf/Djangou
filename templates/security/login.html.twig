@@ -7,6 +7,7 @@
         <div class="container mt-4 center">
             <h1>Connexion</h1>
             <form action="{{path('login')}}" method="post">
+                <div class="row">
                 {% if error %}
                     <div class="alert alert-danger">
                         {{error.messageKey | trans(error.messagedata, 'security')}}
@@ -19,11 +20,11 @@
                     </div>
                 {% endif %}
 
-                <div class="input-field col s12 m6 l6 offset-m3 offset-l3">
+                <div class="input-field col s6 m6 l6 offset-m3 offset-l3">
                     <input type="text" name="_username" id="username" value="{{ last_username}}" class="" required autofocus placeholder="Nom d'utilisateur">
                 </div>
 
-                <div class="input-field col s12 m6 l6 offset-m3 offset-l3">
+                <div class="input-field col s6 m6 l6 offset-m3 offset-l3">
                     <input type="password" name="_password" id="password" class="" required placeholder="Mot de passe">
                 </div>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
@@ -34,6 +35,8 @@
 
                 <div class="input-field col s12">
                     <input type="submit" class="btn btn-dark" value="Me connecter">
+                </div>
+
                 </div>
             </form>
         </div>

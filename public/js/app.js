@@ -1,11 +1,11 @@
-(function ($) {
-    $('form[name="search"]').submit(function (e) {
+(function($) {
+    $('form[name="search"]').submit(function(e) {
         e.preventDefault();
         var formData = $(this).serialize();
         var results = $('#results');
 
         var updateResults = function(word, cls) {
-            if(word) {
+            if (word) {
                 $('#results .def, #results .classe').fadeIn();
                 $('#results .def .data').text(word);
                 $('#results .classe .data').text(cls);
@@ -19,22 +19,25 @@
         };
 
         $.ajax({
-            url: '/',
-            type: 'POST',
-            data: formData
-        })
-        .done(function (data) {
-            if(data) {
-                updateResults(data.word, data.classe);
-            } else {
-                updateResults();
-            }
-        })
-        .fail(function (data) {
-            console.error(data);
-        });
+                url: '/',
+                type: 'POST',
+                data: formData
+            })
+            .done(function(data) {
+                if (data) {
+                    updateResults(data.word, data.classe);
+                } else {
+                    updateResults();
+                }
+            })
+            .fail(function(data) {
+                console.error(data);
+            });
         // console.log(form.serialize());
         return false;
     });
-    $('select').formSelect();    
+
+    $('.sidenav').sidenav();
+
+    $('select').formSelect();
 })(jQuery);
