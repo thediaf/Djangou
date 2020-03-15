@@ -215,9 +215,9 @@ class User implements UserInterface, \Serializable
         if ($this->histories->contains($history)) {
             $this->histories->removeElement($history);
             // set the owning side to null (unless already changed)
-            if ($history->getUser() === $this) {
-                $history->setUser(null);
-            }
+            // if ($history->getUser() === $this) {
+            //     $history->setUser(null);
+            // }
         }
 
         return $this;

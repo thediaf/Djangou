@@ -1,4 +1,42 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="row">
+
+    {{ form_widget(form.translate.language, {
+        attr: {
+            class: 'input-field col m2'
+        }
+    }) }}
+
+    {{ form_widget(form.translate.word, {
+        attr: {
+            class: 'input-field col s6 m2 offset-m1',
+            placeholder: 'Mot à traduire'
+        }
+    }) }}
+
+    {{ form_widget(form.translate.classe, {
+        attr: {
+            class: 'input-field col s6 m2 offset-s1 offset-m1',
+            placeholder: 'Classe du mot'
+        }
+    }) }}
+
+    <div id="form-translates"
+        data-prototype="{{ form_widget(form.translate.translates.vars.prototype)|e }}"
+        data-widget-tags="{{ "<div id=\"translate_translates\"></div>"|e }}"
+        data-widget-counter="{{ form.translate.translates|length }}">
+
+        {{ form_widget(form.translate.translates) }}
+    </div>
+
+    <div class="col s12 my-5 mx-0">
+        <button type="button" class="add-translation btn btn-primary btn-sm" data-list-selector="#form-translates">
+            <i class="fa fa-plus"></i> Ajouter une traduction du mot
+        </button>
+    </div>
+
+    <div class="input-field col s12">
+        <input type="submit" class="btn btn-dark" value="Soumettre">
+    </div>
+</div>
 {{ form_end(form) }}

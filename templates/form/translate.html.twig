@@ -10,3 +10,7 @@
     </div>
 </div>
 {% endblock %}
+
+{% block suggestion_translate_widget %}
+    {{ form_widget(form.translate.word, {attr: {class: 'input-field'}}) }}
+{% endblock %}

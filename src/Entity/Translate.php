@@ -42,12 +42,12 @@ class Translate implements JsonSerializable
     private $language;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Translate", inversedBy="translates")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Translate", inversedBy="translates", cascade={"persist"})
      */
     private $words;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Translate", mappedBy="words")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Translate", mappedBy="words", cascade={"persist"})
      */
     private $translates;
 

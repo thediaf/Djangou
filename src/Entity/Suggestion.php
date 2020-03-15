@@ -39,7 +39,7 @@ class Suggestion
     private $status;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Translate")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Translate", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $translate;
@@ -49,6 +49,11 @@ class Suggestion
     const REJECTED = 'rejected';
 
     const STATUS = [self::PENDING, self::ACCTEPED, self::REJECTED];
+
+    public function __construct()
+    {
+        $this->setStatus(self::PENDING);
+    }
 
 
     public function getId(): ?int
@@ -73,9 +78,12 @@ class Suggestion
         return $this->suggestedAt;
     }
 
-    public function setSuggestedAt(\DateTimeInterface $suggestedAt): self
+    /**
+     * @ORM\PrePersist
+     */
+    public function setSuggestedAt(): self
     {
-        $this->suggestedAt = $suggestedAt;
+        $this->suggestedAt = new \DateTime();
 
         return $this;
     }
@@ -86,11 +94,13 @@ class Suggestion
     }
 
     /**
-     * @ORM\PrePersist
+     * @ORM\PreUpdate
      */
     public function setAcceptedAt(): self
     {
-        $this->acceptedAt = new \DateTime();
+        if($this->acceptedAt) {
+            $this->acceptedAt = new \DateTime();
+        }
 
         return $this;
     }
