@@ -18,7 +18,7 @@
                     <ul class="right hide-on-med-and-down">
                         {% if app.user %}
                             {% if is_granted('ROLE_ADMIN') %}
-                                <li><a href="{{ path('admin_index') }}">Administration</li>
+                                <li><a href="{{ path('admin_index') }}">Administration</a></li>
                             {% endif %}
                             
                             <li><a href="{{ path('history_index') }}">Historique</a></li>
@@ -45,8 +45,10 @@
                     <li><a href="{{ path('login') }}">Se connecter</a></li> 
                 {% endif %}
             </ul>
-        {% block body %}{% endblock %}
         
+            <div class="main-wrapper">
+                {% block body %}{% endblock %}
+            </div>
         {# </div> #}
         <script src="{{ asset('js/jquery-1.11.2.min.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
