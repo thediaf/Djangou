@@ -1,15 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Votre historique de recherche{% endblock %}
+{% block title %}Progression{% endblock %}
 
 {% block body %}
     <h4 class="blue-text">
-        <i class="fa fa-history"></i>
-        Votre historique de recherche
+        <i class="fa fa-chart-line"></i>
+        Votre progression
     </h4>
 
     {% if histories %}
-    <table class="table">
+
+    <ul class="collection with-header">
+        <li class="collection-header">
+            <div class="progress">
+                <div class="determinate blue" style="width: {{ app.user.progression }}%"></div>
+            </div>
+        </li>
+        <li class="collection-item">
+            <div>Nombre de mots memorisés<a href="#!" class="secondary-content"><span class="badge new" data-badge-caption="{{ app.user.histories.count }}"></span></a></div>
+        </li>
+        <li class="collection-item">
+            <div>Nombre de mots cherchés<a href="#!" class="secondary-content"><span class="badge new grey" data-badge-caption="{{ app.user.memorized }}"></span></a></div>
+        </li>
+    </ul>
+
+    <table class="highlight">
         <thead>
             <tr>
                 <th>#</th>
@@ -49,7 +64,7 @@
         </tbody>
     </table>
     {% else %}
-        <p class="alert alert-info">Votre historique de recherche est vide.</p>
+        <p class="alert alert-info">Vous n'avez pas encore cherché de mots.</p>
     {% endif %}
 {% endblock %}
 
@@ -79,12 +94,13 @@
                         }
                     })
                     .done(function(data) {
-                        if(data === true) {
+                        if(data.success === true) {
                             if(isMemorized) {
                                 label.removeClass('black-text').addClass('green-text');
                             } else {
                                 label.removeClass('green-text').addClass('black-text');
                             }
+                            $('.progress .determinate').attr('style', `width: ${data.progression}%;`);
                         } else {
                             console.log(data);
                         }

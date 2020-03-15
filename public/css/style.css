@@ -74,3 +74,8 @@ nav {
     background-color: #212121;
     color: aliceblue !important;
 } */
+
+.progress {
+    height: .75rem;
+    border-radius: .5rem;
+}

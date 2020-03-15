@@ -106,7 +106,7 @@ class History
         return $this;
     }
 
-    public function getIsMemorised(): bool
+    public function isMemorised(): bool
     {
         return $this->isMemorised;
     }

@@ -50,13 +50,18 @@ class HistoryController extends AbstractController
         $isMemorized = $request->request->get('isMemorized', null);
 
         if($isMemorized === null) {
-            return $this->json(null);
+            return $this->json([
+                'success' => false
+            ]);
         }
         
         $history->setIsMemorised($isMemorized == "false" ? false : true);
         $entityManager->flush();
         
-        return $this->json(true);
+        return $this->json([
+            'success' => true,
+            'progression' => $this->getUser()->getProgression()
+        ]);
     }
 
     /**

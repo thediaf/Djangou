@@ -213,5 +213,23 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
+
+    public function getProgression(): ?int
+    {
+        $count = $this->histories->count();
+        
+        if($count > 0) {
+            return 100 * ($this->getMemorized() / $count);
+        }
+
+        return null;
+    }
+
+    public function getMemorized(): ?int
+    {
+        return $this->histories->filter(function(History $history) {
+            return $history->isMemorised();
+        })->count();
+    }
 }
     
