@@ -8,12 +8,23 @@
 
 {% block content %}
 
-    <ol class="breadcrumb">
+    {# <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ path('admin_index') }}">Accueil</a></li>
         <li class="breadcrumb-item"><a href="{{ path('admin_translate') }}">Dictionnaire</a></li>
         <li class="breadcrumb-item"><a href="{{ path('admin_translation_list', {id: lang.id}) }}">{{ lang.name }}</a></li>
         <li class="breadcrumb-item active">{{ t.word }}</li>
-    </ol>
+    </ol> #}
+
+
+  {# <nav>
+    <div class="nav-wrapper ">
+        <div class="row col s5 breadcrumbnav">
+            <a href="{{ path('admin_index') }}" class="breadcrumb">Accueil</a>
+            <a href="{{ path('admin_translate') }} class="breadcrumb"">Dictionnaire</a>
+        </div>
+    </div>
+  </nav> #}
+            
     
     <div class="container">
         <div class="row">
@@ -23,22 +34,22 @@
                     Dictionnaire: <strong>{{ lang.name }}</strong>
                 </h1>
                 <h2 class="h6 font-weight-bold text-under-line mt-3">
-                    <span class="badge badge-success mr-2 pt-1">{{ lang.name }}</span>
+                    {# <span class="new badge">{{ lang.name }}</span> #}
                     {{ t.word }}
                     <a href="{{ path('admin_translate_edit', {id: t.id}) }}"  class="btn btn-primary btn-sm float-right"><i class="fa fa-edit"></i> Modifier</a>
                 </h2>
             </div>
-
+        </div>
             <h3 class="h5 mb-2 mt-4 border-bottom">Traductions</h3>
 
             <div class="container px-0">
                 <div class="row mx-0">
-                    {% for translated in t.translations %}
-                        <div class="pl-0 col-xs-6 col-sm-6 col-md-4 col-lg-3">
+                    <div class="collection col s6">
+                        {% for translated in t.translations %}
                             <span class="badge badge-info pt-1">{{ translated.language.name }}</span> {{ translated.word }}
-                        </div>
-                    {% endfor %}
-                </div>
+                        {% endfor %}
+                    </div>
+                    </div>
             </div>
         </div>
     </div>

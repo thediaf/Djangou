@@ -67,8 +67,8 @@ nav {
     /* padding-top: 5rem; */
 }
 
-
-/* .bg-dark {
-    background-color: #212121;
-    color: aliceblue !important;
-} */
+.breadcrumbnav {
+    background-color: initial !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
