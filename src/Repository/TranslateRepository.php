@@ -27,14 +27,14 @@ class TranslateRepository extends ServiceEntityRepository
     {
         $query = $this->findWordQuery();
         
-        if ($search->getWord())
-        {
+        if ($search->getWord()) {
             $query = $query->leftJoin('t.word', 'w')
                         ->addSelect('w')
                         ->Where('w.language = :lang')
                         ->setParameter('lang', $search->getWordLanguage())
                         ->andWhere('w.word', $search->getWord())
                         ->andWhere('t.language = :wordLang')
+                        ->andWhere('t.isSuggestion = false')
                         ->setParameter('wordLang', $search->getTranslateLanguage());
         }   
         return $query->getQuery()->getResult();
@@ -54,6 +54,7 @@ class TranslateRepository extends ServiceEntityRepository
             ->where('t.language = :lang')
             ->andWhere('trans = :word')
             ->orWhere('w = :word')
+            ->andWhere('t.isSuggestion = false')
             ->setParameter('lang', $search->getTranslateLanguage())
             ->setParameter('word', $source)
             ->getQuery()

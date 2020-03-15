@@ -6,7 +6,7 @@
 
     <h1 class="center">Base de donnees de traduction</h1>
             
-    <div class="container cont mt-2">
+    <div class="cont mt-2">
     
             {{form_start(form)}}
                 <div class="row">
@@ -26,11 +26,14 @@
                     </div>
                 </div>
             {{form_end(form)}}
+
+            <div class="container">
         
             <div id="results">
+                <div class="def bs-hide">Traduction: <span class="data green-text"></span></div>
                 <div class="classe bs-hide">Classe: <span class="data"></span></div>
-                <div class="def bs-hide">Traduction: <span class="data"></span></div>
-                <div class="undefined bs-hide text-danger">Mot introuvable</div>
+                <div class="undefined bs-hide red-text">Mot introuvable</div>
             </div>
+        </div>
         </div>
 {% endblock %}

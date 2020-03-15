@@ -1,11 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Suggestion{% endblock %}
+{% block title %}Ajouter une suggestion{% endblock %}
 
 {% block body %}
-    <h1>Create new Suggestion</h1>
-
+    <h1>Ajouter une suggestion</h1>
     {{ include('suggestion/_form.html.twig') }}
-
-    <a href="{{ path('suggestion_index') }}">back to list</a>
 {% endblock %}

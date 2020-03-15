@@ -9,9 +9,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/suggestion")
+ * @IsGranted("ROLE_USER")
  */
 class SuggestionController extends AbstractController
 {
@@ -37,6 +39,17 @@ class SuggestionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            
+            $suggestion->getTranslate()->setIsSuggestion(true);
+            $translates = $suggestion->getTranslate()->getAll();
+
+            foreach ($translates as $translate) {
+                $translate->setIsSuggestion(true);
+            }
+
+            $user = $this->getUser();
+            $user->addSuggestion($suggestion);
+
             $entityManager->persist($suggestion);
             $entityManager->flush();
 
@@ -65,6 +78,7 @@ class SuggestionController extends AbstractController
     public function edit(Request $request, Suggestion $suggestion): Response
     {
         $form = $this->createForm(SuggestionType::class, $suggestion);
+        $form->get('translate')->add('language');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
