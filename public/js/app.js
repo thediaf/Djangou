@@ -40,4 +40,5 @@
     $('.sidenav').sidenav();
 
     $('select').formSelect();
+
 })(jQuery);

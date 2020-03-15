@@ -1,21 +1,21 @@
 {% import _self as macros %}
 
 {% macro addItem(url, title, icon, active, active_name, rounded0 = false) %}
-    <a href="{{ path(url) }}"
+    <li><a href="{{ path(url) }}"
         class="list-group-item list-group-item-action{% if active|default('home') == active_name %} active{% endif %} {% if rounded0 %}rounded-0{% endif %}">
         <i class="fa fa-{{ icon }}"></i>
         {{ title }}
-    </a>
+    </a></li>
 {% endmacro %}
 
 {% if active is not defined %}
     {% set active = 'home' %}
 {% endif %}
 
-<div class="sidebar bg-dark">
-    <div class="list-group">
-        {{ macros.addItem('admin_index', 'Tableau de bord', 'tachometer-alt', active, 'home', true) }}
-        {{ macros.addItem('admin_users', 'Utilisateurs', 'users', active, 'users') }}
-        {{ macros.addItem('admin_translate', 'Dictionnaire', 'book', active, 'translate', true) }}
-    </div>
-</div>
+  <ul id="slide-out" class="sidenav sidenav-fixed bg-dark">
+    {{ macros.addItem('admin_index', 'Tableau de bord', 'tachometer-alt', active, 'home', true) }}
+    {{ macros.addItem('admin_users', 'Utilisateurs', 'users', active, 'users') }}
+    {{ macros.addItem('admin_translate', 'Dictionnaire', 'book', active, 'translate', true) }}
+  </ul>
+  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        

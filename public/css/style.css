@@ -54,7 +54,8 @@ body {
     font-style: italic;
 }
 
-.main-wrapper, nav {
+.main-wrapper,
+nav {
     padding-left: 5rem;
     padding-right: 5rem;
 }
@@ -62,3 +63,14 @@ body {
 nav {
     background-color: #212121;
 }
+
+.sidenav {
+    margin-top: 4rem;
+    /* padding-top: 5rem; */
+}
+
+
+/* .bg-dark {
+    background-color: #212121;
+    color: aliceblue !important;
+} */
