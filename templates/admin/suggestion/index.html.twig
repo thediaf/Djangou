@@ -1,0 +1,49 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Suggérer des traductions{% endblock %}
+
+{% block content %}
+    <h4 class="blue-text">
+        Suggestions
+        <a href="{{ path('suggestion_new') }}" class="btn btn-primary">
+            <i class="fa fa-plus"></i>
+            Ajouter une suggestion
+        </a>
+    </h4>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom d'utilisateur</th>
+                    <th>Mot suggéré</th>
+                    <th>Date suggestion</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for suggestion in suggestions %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ suggestion.word }} <span class="badge new" data-badge-caption="{{ suggestion.language }}"></span> </td>
+                    <td>{{ suggestion.suggestedAt ? (suggestion.suggestedAt|date('Y-m-d H') ~ 'h ' ~ suggestion.suggestedAt|date('i')) : '' }}</td>
+                    <td><span class="badge new {{ suggestion.badgeStatus }}" data-badge-caption="{{ ('status.' ~ suggestion.status)|trans }}"></span></td>
+                    <td>
+                        <a class="btn waves-effect" href="{{ path('suggestion_show', {'id': suggestion.id}) }}">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <a class="btn orange waves-effect" href="{{ path('suggestion_edit', {'id': suggestion.id}) }}">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a class="btn orange waves-effect" href="{{ path('suggestion_edit', {'id': suggestion.id}) }}">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {# {% else %}
+        <p class="alert alert-info">Vous n'avez pas encore ajouté de suggestions.</p>
+    {% endif %} #}
+{% endblock %}

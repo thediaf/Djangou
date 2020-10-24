@@ -8,11 +8,11 @@
 
 {% block content %}
 
-    <ol class="breadcrumb">
+    {# <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ path('admin_index') }}">Accueil</a></li>
         <li class="breadcrumb-item"><a href="{{ path('admin_translate') }}">Dictionnaire</a></li>
         <li class="breadcrumb-item active">{{ lang.name }}</li>
-    </ol>
+    </ol> #}
     
     <div class="container">
         <div class="row">
@@ -50,11 +50,12 @@
 
             <div class="container px-0">
                 <div class="row mx-0">
+                        <div class="collection col s4">
                     {% for translate in translates %}
-                        <div class="pl-0 col-xs-6 col-sm-6 col-md-4 col-lg-3">
-                            <a href="{{ path('admin_translate_show', {id: translate.id}) }}">{{ translate.word }}</a>
-                        </div>
+                            <a class="collection-item" href="{{ path('admin_translate_show', {id: translate.id}) }}">{{ translate.word }}</a>
+                        
                     {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>

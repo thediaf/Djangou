@@ -104,6 +104,11 @@ class User implements UserInterface, \Serializable
         return $this;        
     }
 
+    public function hasRole(string $role): bool
+    {
+        return in_array($role, $this->roles);
+    }
+
     /**
      * 
      *

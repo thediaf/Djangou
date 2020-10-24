@@ -9,6 +9,7 @@
 
 {% block content %}
 	<div class="container mt-5">
+		<h1>La liste des utilisateurs</h1>
 		<table class="table">
 			<thead class="thead-dark">
 				<tr>
@@ -22,8 +23,13 @@
 					<tr>
 						<th scope="row">{{ loop.index }}</th>
                         <td><a href="{{ path('admin_user_show', {id: u.id}) }}" class="text-decoration-none">@{{ u.username }}</a></td>
-                        <td>{{ u.roles | join(', ') }}</td>
-                    </tr>
+                        {% if u.hasRole('ROLE_ADMIN') %}
+							<td>Administrateur</td>
+                        {% else %}
+							<td>Utilisateur</td>
+                        {% endif %}
+													
+					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
