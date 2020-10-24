@@ -17,13 +17,14 @@ class TranslationFixtures extends Fixture implements DependentFixtureInterface
     {
         $this->em = $em;     
     }
+
     public function load(ObjectManager $manager)
     {
         // $product = new Product();
         // $manager->persist($product);
 
         $language = new Language();
-        
+
         $word = new Translate();
         $word->setWord('bonjour');
         $word->setClasse('interjection');

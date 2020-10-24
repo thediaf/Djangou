@@ -24,13 +24,13 @@ class History
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Translate", cascade={"persist", "remove", "merge"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Translate")
      * @ORM\JoinColumn(nullable=false)
      */
     private $source;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Translate", cascade={"persist", "merge"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Translate")
      * @ORM\JoinColumn(nullable=false)
      */
     private $target;
@@ -44,6 +44,11 @@ class History
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $isMemorised = false;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $token;
 
     public function getId(): int
     {
@@ -101,7 +106,7 @@ class History
         return $this;
     }
 
-    public function getIsMemorised(): bool
+    public function isMemorised(): bool
     {
         return $this->isMemorised;
     }
@@ -109,6 +114,30 @@ class History
     public function setIsMemorised(bool $isMemorised): self
     {
         $this->isMemorised = $isMemorised;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function equals(History $history): bool
+    {
+        return $this->source == $history->getSource()
+            && $this->target == $history->getTarget()
+            && $this->user   == $history->getUser()
+        ;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateToken(): self
+    {
+        $this->token = md5(time());
 
         return $this;
     }

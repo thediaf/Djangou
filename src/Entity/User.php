@@ -104,6 +104,11 @@ class User implements UserInterface, \Serializable
         return $this;        
     }
 
+    public function hasRole(string $role): bool
+    {
+        return in_array($role, $this->roles);
+    }
+
     /**
      * 
      *
@@ -194,17 +199,8 @@ class User implements UserInterface, \Serializable
     public function addHistory(History $history): self
     {
         if (!$this->histories->contains($history)) {
-            $found = false;
-            foreach ($this->histories as $h) {
-                if($h->getSource()->getId() == $history->getSource()->getId() || $h->getTarget() == $history->getTarget()){
-                    $found = true;
-                    break;
-                }
-            }
-            if(!$found) {
-                $this->histories[] = $history;
-                $history->setUser($this);
-            }
+            $this->histories->add($history);
+            $history->setUser($this);
         }
 
         return $this;
@@ -223,9 +219,22 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function hasRole($role)
+    public function getProgression(): ?int
     {
-        return in_array($role, $this->roles);  
+        $count = $this->histories->count();
+        
+        if($count > 0) {
+            return 100 * ($this->getMemorized() / $count);
+        }
+
+        return null;
+    }
+
+    public function getMemorized(): ?int
+    {
+        return $this->histories->filter(function(History $history) {
+            return $history->isMemorised();
+        })->count();
     }
 }
     

@@ -41,10 +41,52 @@
 
     $('select').formSelect();
 
-    $('form[name="suggestion"] .select-wrapper').addClass('col s12 m3');
     if ($('form[name="suggestion"]').length > 0) {
+        $('form[name="suggestion"] .select-wrapper').addClass('col s12 m3');
         processTranslateCollection();
     }
+
+    (function ($) {
+        var inputs = $('.histories input[type="checkbox"]');
+        let currentRequest = null;
+        
+        inputs.each(function() {
+            const input = $(this);
+            const label = input.parent().find('span');
+
+            input.change(function(){
+                const isMemorized = input.is(':checked');
+                
+                currentRequest = $.ajax({
+                    url: input.parent().parent().parent().data('status-update-url'),
+                    method: "POST",
+                    dataType: 'JSON',
+                    data: {isMemorized},
+
+                    beforeSend: function() {
+                        if(currentRequest) {
+                            currentRequest.abort();
+                        }
+                    }
+                })
+                .done(function(data) {
+                    if(data.success === true) {
+                        if(isMemorized) {
+                            label.removeClass('black-text').addClass('green-text');
+                        } else {
+                            label.removeClass('green-text').addClass('black-text');
+                        }
+                        $('.progress .determinate').attr('style', `width: ${data.progression}%;`);
+                    } else {
+                        console.log(data);
+                    }
+                })
+                .fail(function(data) {
+                    console.log(data);
+                });
+            });
+        });
+    })(jQuery);
 
     function processTranslateCollection() {
         $('.add-translation').click(function(_) {

@@ -45,6 +45,8 @@ body {
 #results {
     font-size: large;
     font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin-top: 3rem;
 }
 
 .data {
@@ -67,8 +69,13 @@ nav {
     /* padding-top: 5rem; */
 }
 
-.breadcrumbnav {
-    background-color: initial !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+
+/* .bg-dark {
+    background-color: #212121;
+    color: aliceblue !important;
+} */
+
+.progress {
+    height: .75rem;
+    border-radius: .5rem;
 }

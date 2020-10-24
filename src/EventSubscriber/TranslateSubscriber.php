@@ -30,7 +30,17 @@ class TranslateSubscriber implements EventSubscriberInterface
                 ->setUser($this->user);
             $this->user->addHistory($history);
             $this->entityManager->persist($history);
-            $this->entityManager->flush();
+
+            $histories = $this->entityManager->getRepository(History::class)->findAll();
+            $found = false;
+            foreach ($histories as $h) {
+                if($history->equals($h)) {
+                    $found = true;
+                }
+            }
+            if(!$found) {
+                $this->entityManager->flush();
+            }
         }
     }
 
