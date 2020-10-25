@@ -79,3 +79,17 @@ nav {
     height: .75rem;
     border-radius: .5rem;
 }
+
+@media(max-width: 600px) {
+    nav .sidenav-trigger {
+        float: right;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+nav .brand-logo {
+    left: 0;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+}
