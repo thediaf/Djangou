@@ -90,11 +90,11 @@ Dall : n.chaussures
 Dama : pr. je 
 Damm : v. casser
 Damp : v. masser
-Danga pr. tu
-Dangeen pr. vous
-Dañu pr. nous
+Danga: pr. tu
+Dangeen: pr. vous
+Dañu: pr. nous
 Daqqaar : n. tamarin, tamarinier
-Dara : pron. n. adv. rien
+Dara: pron. n. adv. rien
 Darkase : n. pomme d'acajou
 Daw : v. courir
 Dee : v. mourir
@@ -107,7 +107,7 @@ Deglu : v. écouter
 Dellu : v.retourner
 Dem : v. partir
 Demb : n. hier
-Deñu pr. ils
+Deñu: pr. ils
 Der : n. peau
 Deñc : v. garder
 Dëgër : adj. dur, solide

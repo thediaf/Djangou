@@ -6,40 +6,83 @@ use App\Entity\Language;
 use App\Entity\Translate;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-class TranslationFixtures extends Fixture implements DependentFixtureInterface
+class TranslationFixtures extends Fixture //implements DependentFixtureInterface
 {
     private $em;
+    private $parameter;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, ParameterBagInterface $parameter)
     {
+        $this->parameter = $parameter;
         $this->em = $em;     
     }
 
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $dir = $this->parameter->get('kernel.project_dir') . '/var/app/';
+        
+    //    $languages = ['wolof', 'pulaar']
+        $pl = $dir . 'wolof-fr.txt';
 
-        $language = new Language();
+        $lines = explode("\n", file_get_contents($pl));
+        foreach ($lines as $line) {
+            $words = explode(":", $line);
 
-        $word = new Translate();
-        $word->setWord('bonjour');
-        $word->setClasse('interjection');
-        $word->setLanguage($this->em->getRepository(Language::class)->findOneByName('Francais')); 
-        $manager->persist($word);
-        $word1 = new Translate();
+            if(count($words) !== 2)
+                continue;
+            
+            $translatedWord = trim(substr($words[1], strrpos($words[1], ".") + 2));
+            $interjection = trim(substr($words[1], 0, strpos($words[1], ".")));
 
-        $word1->setWord('good morning');        
-        $word1->setLanguage($this->em->getRepository(Language::class)->findOneByName('Anglais'));
-        $word1->addTranslate($word);
-        $word1->setClasse('interjection');
-        $manager->persist($word1);
+            $word = (new Translate())
+                ->setWord(trim($words[0]))
+                ->setClasse($this->getInterjection($interjection))
+                ->setLanguage($this->em->getRepository(Language::class)->findOneByName('Wolof'))
+            ;
 
+            $translated = (new Translate())
+                ->setWord($translatedWord)
+                ->setClasse($this->getInterjection($interjection))
+                ->setLanguage($this->em->getRepository(Language::class)->findOneByName('Francais'))
+                ->addTranslate($word)
+                ;
+
+            $manager->persist($translated);
+            $manager->persist($word);
+        }
 
         $manager->flush();
+    }
+
+
+    private  function getInterjection(string $str): ?string
+    {   
+        switch(trim($str)) {
+            case 'n':
+                return 'Nom';
+            case 'adj':
+                return 'Adjectif';
+            case 'v':
+                return 'Verbe';
+            case 'adv':
+                return 'Adverbe';
+            case 'conj':
+                return 'Conjonction';
+            case 'rel': 
+                return 'Relative';
+            case 'interrog':
+                return 'Interrogative';
+            case 'pr':
+                return 'Pronom';
+            case 'pron':
+                return 'Pronom';
+            default:
+                return null;
+        }
     }
 
     public function getDependencies()

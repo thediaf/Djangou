@@ -19,7 +19,7 @@ class LanguageFixtures extends Fixture
         $manager->persist($language1);
 
         $language2 = new Language();
-        $language2->setName('Arabe');
+        $language2->setName('Wolof');
         $manager->persist($language2);
 
         $manager->flush();

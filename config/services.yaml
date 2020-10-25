@@ -6,7 +6,7 @@
 parameters:
     app:
         name: 'Djangou'
-
+        project_dir: '%kernel.project_dir%'
 services:
     # default configuration for services in *this* file
     _defaults:
