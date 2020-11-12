@@ -15,8 +15,10 @@ Ala : non ; ala bassi ou ala problème, pas de problème.
 Aldjuma : vendredi.
 Alkamissa : jeudi.
 Alleet : dimanche.
-Ama(ni) (mi ama(ni)) : je (ne) danse (pas).
-Annda(ni) (mi annda(ni)) : je (ne) sais (pas) ; du verbe annduude, savoir, connaître, être au courant.
+mi ama : je danse.
+Mi amani : je ne danse pas.
+Mi annda : je ne sais pas.
+Annduude: savoir, connaître, être au courant.
 Annde : aujourd'hui ; annde éné wuuli.
 Annki : hier.
 Ano : toi.
@@ -405,7 +407,7 @@ Olkosaabi ou olkotaaki ? : pourquoi ?.
 Olto ngonoda ? : où étais-tu ?.
 Omo fooji : il, ou elle est maigre.
 Omo neeni pulaar : il est adroit, habile en pulaar.
-One baali Diiam : bonjour le matin.
+One baali Diiam : bonjour.
 One beeti Diiam : bonjour entre onze heure et treize heure.
 one niyaali Diiam : bonjour jusqu'au crépuscule.
 One keeri Diiam : bonsoir.
