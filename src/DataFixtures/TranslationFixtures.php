@@ -25,27 +25,31 @@ class TranslationFixtures extends Fixture //implements DependentFixtureInterface
     {
         $dir = $this->parameter->get('kernel.project_dir') . '/var/app/';
         
+    //    $languages = ['wolof', 'pulaar']
         $pl = $dir . 'wolof-fr.txt';
+
         $lines = explode("\n", file_get_contents($pl));
-        
         foreach ($lines as $line) {
             $words = explode(":", $line);
 
             if(count($words) !== 2)
                 continue;
             
-            $translatedWord = trim(substr($words[1], 0, strpos($words[1], ".")));
+            $translatedWord = trim(substr($words[1], strrpos($words[1], ".") + 2));
+            $interjection = trim(substr($words[1], 0, strpos($words[1], ".")));
             
             $word = (new Translate())
                 ->setWord(trim($words[0]))
-                ->setLanguage($this->em->getRepository(Language::class)->findOneByName('Pulaar'))
+                ->setClasse($this->getInterjection($interjection))
+                ->setLanguage($this->em->getRepository(Language::class)->findOneByName('Wolof'))
             ;
 
             $translated = (new Translate())
                 ->setWord($translatedWord)
+                ->setClasse($this->getInterjection($interjection))
                 ->setLanguage($this->em->getRepository(Language::class)->findOneByName('Francais'))
                 ->addTranslate($word)
-            ;
+                ;
 
             $manager->persist($translated);
             $manager->persist($word);
@@ -76,6 +80,7 @@ class TranslationFixtures extends Fixture //implements DependentFixtureInterface
             $manager->persist($translated);
             $manager->persist($word);
         }
+
         $manager->flush();
     }
 

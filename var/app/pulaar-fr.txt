@@ -447,7 +447,8 @@ SeBori : adjectif signifiant mieux ; éné seBori, c'est mieux que…
 Seemori : adjectif signifiant tiède.
 Seesaa : doucement ; seesaa seesaa, tout doucement.
 Serrde : verbe signifiant se séparer, divorcer
-Sehil (pl : sehilaaBe) : l'ami ; sehilaaBam, mes, nos... amis.
+Sehil (pl : sehilaaBe) : ami. 
+SehilaaBam: mes amis.
 Sehilaagal : amitié.
 Seytaane (pl: seytaneeji) : calomniateur, délateur, etc.
 So neDDo barkini yo yettu jinnaaBemum : si l'homme réussit socialement, que sa gratitude aille à ses pères et mères.
