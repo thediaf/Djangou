@@ -22,6 +22,10 @@ class LanguageFixtures extends Fixture
         $language2->setName('Wolof');
         $manager->persist($language2);
 
+        $language3 = new Language();
+        $language3->setName('Pulaar');
+        $manager->persist($language3);
+
         $manager->flush();
     }
 }
