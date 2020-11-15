@@ -37,7 +37,7 @@ class TranslationFixtures extends Fixture //implements DependentFixtureInterface
             
             $translatedWord = trim(substr($words[1], strrpos($words[1], ".") + 2));
             $interjection = trim(substr($words[1], 0, strpos($words[1], ".")));
-
+            
             $word = (new Translate())
                 ->setWord(trim($words[0]))
                 ->setClasse($this->getInterjection($interjection))
@@ -50,6 +50,32 @@ class TranslationFixtures extends Fixture //implements DependentFixtureInterface
                 ->setLanguage($this->em->getRepository(Language::class)->findOneByName('Francais'))
                 ->addTranslate($word)
                 ;
+
+            $manager->persist($translated);
+            $manager->persist($word);
+        }
+
+        $pl = $dir . 'pulaar-fr.txt';
+        $lines = explode("\n", file_get_contents($pl));
+        
+        foreach ($lines as $line) {
+            $words = explode(":", $line);
+
+            if(count($words) !== 2)
+                continue;
+            
+            $translatedWord = trim(substr($words[1], 0, strpos($words[1], ".")));
+            
+            $word = (new Translate())
+                ->setWord(trim($words[0]))
+                ->setLanguage($this->em->getRepository(Language::class)->findOneByName('Pulaar'))
+            ;
+
+            $translated = (new Translate())
+                ->setWord($translatedWord)
+                ->setLanguage($this->em->getRepository(Language::class)->findOneByName('Francais'))
+                ->addTranslate($word)
+            ;
 
             $manager->persist($translated);
             $manager->persist($word);

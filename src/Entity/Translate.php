@@ -74,7 +74,7 @@ class Translate implements JsonSerializable
 
     public function setWord(string $word): self
     {
-        $this->word = $word;
+        $this->word = mb_strtolower($word);
 
         return $this;
     }
