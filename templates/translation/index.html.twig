@@ -4,23 +4,24 @@
 
 {% block body %}
 
+    <div class="container-fluid">
     <h1 class="center">Base de donnees de traduction</h1>
             
     <div class="cont mt-2">
     
             {{form_start(form)}}
                 <div class="row">
-                    <div class="input-field col offset-l1 s2">
+                    <div class="input-field col  s12 m3">
                         {{ form_row(form.wordLanguage) }}
                     </div>
-                    <div class="input-field col s2">
+                    <div class="input-field col s12 m3">
                         {{ form_row(form.translateLanguage) }}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-group col s7">
+                    <div class="input-group col s10 m8">
                         {{form_row(form.word)}}</div>
-                        <div class="input-group-prepend col s0">
+                        <div class="input-group-prepend col s1 m1">
                             <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
@@ -34,6 +35,7 @@
                 <div class="classe bs-hide">Classe: <span class="data"></span></div>
                 <div class="undefined bs-hide red-text">Mot introuvable</div>
             </div>
+        </div>
         </div>
         </div>
 {% endblock %}

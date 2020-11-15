@@ -36,7 +36,7 @@
             <ul class="sidenav" id="mobile-demo">
                 {% if app.user %}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <li><a href="{{ path('admin_index') }}">Administration</li>
+                        <li><a href="{{ path('admin_index') }}">Administration</a></li>
                     {% endif %}                    
                     <li><a href="{{ path('history_index') }}">Historique</a></li>
                     <li><a href="{{ path('suggestion_index') }}">Suggestion</a></li>
