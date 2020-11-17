@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{{ App.name }}{% endblock %}</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
         <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
@@ -16,51 +17,24 @@
             <nav>
                 <div class="nav-wrapper">
                     <a class="brand-logo" href="{{ path('translation') }}">{{ App.name }}</a>
-                    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">Menu</i></a>
-                    <ul class="right hide-on-med-and-down">
-                        {% if app.user %}
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li><a href="{{ path('admin_index') }}">Administration</a></li>
-                            {% endif %}
-                            
-                            <li><a href="{{ path('history_index') }}">Historique</a></li>
-                            <li><a href="{{ path('suggestion_index') }}">Suggestion</a></li>
-                            <li><a href="{{ path('logout') }}">Se deconnecter</a></li>
-                        {% else %}
-                            <li><a href="{{ path('register') }}">S'inscrire</a></li>
-                            <li><a href="{{ path('login') }}">Se connecter</a></li>                            
-                        {% endif %}                    
-                    </ul>
+                      <a href="#" data-target="slideOut" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 </div>
             </nav>
-
-            <ul class="sidenav" id="mobile-demo">
-                {% if app.user %}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <li><a href="{{ path('admin_index') }}">Administration</li>
-                    {% endif %}                    
-                    <li><a href="{{ path('history_index') }}">Historique</a></li>
-                    <li><a href="{{ path('suggestion_index') }}">Suggestion</a></li>
-                    <li><a href="{{ path('logout') }}">Se deconnecter</a></li>
-                {% else %}
-                    <li><a href="{{ path('register') }}">S'inscrire</a></li>
-                    <li><a href="{{ path('login') }}">Se connecter</a></li> 
-                {% endif %}
-            </ul>
        
-            <div class="main-warpper">
+            <div class="mai container-fluid">
                 <div class="row mx-0 px-0">
                     <div class="col s3">
                         {% block sidebar %}
-                            {% include "admin/sidebar.html.twig" %}
+                            {# {% include "admin/sidebar.html.twig" %} #}
                         {% endblock %}
                     </div>
-                    <div class="col s9">
+                    <div class="col s12 m8">
                         {% block content %}{% endblock %}
                     </div>
                 </div>
             </div>
-        </div>
+        {# </div> #}
+        
         <script src="{{ asset('js/jquery-1.11.2.min.js') }}"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <script src="{{ asset('fontawesome/js/all.js') }}"></script>

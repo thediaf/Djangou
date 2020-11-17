@@ -8,59 +8,71 @@
 {% endblock %}
 
 {% block content %}
-	<div class="">
-		<div class="">
-			<div class="langs mt-5">
-				{# <div class="list-group">
-					<a href="#" class="list-group-item disabled text-dark" aria-disabled="true">
-						<i class="fa fa-language"></i>
-						Langues
-					</a>
-                </div> #}
-                <h1><i class="fa fa-language"></i> La liste des langues</h1>
-                    <div class="row">
-					<div class="collection col s8">
-                    {# <div class="collection-header"></div> #}
-					{% for lang in languages %}
-                    	<a class="collection-item" href="{{ path('admin_translation_list', {id: lang.id}) }}" class="collection-item">{{ lang.name }}</a>
-                    {% endfor %}
-				    </div></div>
-                    
-                <div class="modal fade" id="addLangModal" tabindex="-1" role="dialog" aria-labelledby="addLangModalTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalCenterTitle">Ajouter une langue</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form method="POST" action="{{ path('admin_add_lang') }}" id="submit-lang-form">
-                                    <div class="form-group">
-                                      <label for="lang">Nouvelle langue</label>
-                                      <input type="text" id="lang" name="lang" class="form-control px-3">
-                                    </div>
-                                    <div class="results">
-                                        <p class="alert alert-success hide"><i class="fa fa-check-circle"></i> <span class="text"></span></p>
-                                        <p class="alert alert-danger hide"><i class="fa fa-exclamation-triangle"></i> <span class="text"></span></p>
-                                        <p class="alert alert-info hide"><i class="fa fa-spinner"></i> Chargement en cours ...</p>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer d-flex justify-content-between">
-                                <button type="button" id="submit-lang" class="btn btn-success">
-                                    <i class="fa fa-check"></i>
-                                    Enregistrer
-                                </button>
-                                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Fermer</button>
-                            </div>
+<div class="">
+    <div class="">
+        <div class="langs mt-5">
+            <h1><i class="fa fa-language"></i> La liste des langues</h1>
+                <ul class="collection">
+                {% for lang in languages %}
+                    <li class="collection-item">
+                        <div href="{{ path('admin_translation_list', {id: lang.id}) }}" class="collection-item">
+                                {{ lang.name }}
+                                <div class="secondary-content">
+                                    <a href="{{ path('admin_translation_list', {id: lang.id}) }}">
+                                        <i class="material-icons">visibility</i>
+                                    </a>
+                                    <a href="{{ path('admin_translation_list', {id: lang.id}) }}">
+                                        <i class="material-icons">delete</i>
+                                    </a>
+                                </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+                {# </div> #}
+                
+                {# <ul class="collection with-header">
+                    <li class="collection-header"><h4>First Names</h4></li>
+                    <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                    <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                    <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                    <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                </ul> #}
+            <div class="modal fade" id="addLangModal" tabindex="-1" role="dialog" aria-labelledby="addLangModalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Ajouter une langue</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{{ path('admin_add_lang') }}" id="submit-lang-form">
+                                <div class="form-group">
+                                    <label for="lang">Nouvelle langue</label>
+                                    <input type="text" id="lang" name="lang" class="form-control px-3">
+                                </div>
+                                <div class="results">
+                                    <p class="alert alert-success hide"><i class="fa fa-check-circle"></i> <span class="text"></span></p>
+                                    <p class="alert alert-danger hide"><i class="fa fa-exclamation-triangle"></i> <span class="text"></span></p>
+                                    <p class="alert alert-info hide"><i class="fa fa-spinner"></i> Chargement en cours ...</p>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-between">
+                            <button type="button" id="submit-lang" class="btn btn-success">
+                                <i class="fa fa-check"></i>
+                                Enregistrer
+                            </button>
+                            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Fermer</button>
                         </div>
                     </div>
                 </div>
-                <a href="#" data-toggle="modal" data-target="#addLangModal" class="my-3 btn btn-primary"><i class="fa fa-plus"></i> Ajouter une langue</a>
             </div>
+            <a href="#" data-toggle="modal" data-target="#addLangModal" class="my-3 btn btn-primary"><i class="fa fa-plus"></i> Ajouter une langue</a>
         </div>
     </div>
+</div>
 {% endblock %}
 
