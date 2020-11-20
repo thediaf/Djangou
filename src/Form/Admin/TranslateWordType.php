@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Djangou application.
+ *
+ * (c) Diafra Soumaré and Bechir Ba
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Form\Admin;
 
 use App\Entity\Language;
@@ -19,11 +28,11 @@ class TranslateWordType extends AbstractType
             ->add('language', EntityType::class, [
                 'class' => Language::class,
                 'choice_label' => 'name',
-                'query_builder' => function(LanguageRepository $languageRepository) use($options) {
+                'query_builder' => function (LanguageRepository $languageRepository) use ($options) {
                     return $languageRepository->createQueryBuilder('l')
                         ->where('l.name != :lang')
                         ->setParameter('lang', $options['source_language']);
-                }
+                },
             ])
         ;
     }
@@ -32,7 +41,7 @@ class TranslateWordType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Translate::class,
-            'source_language' => ''
+            'source_language' => '',
         ]);
 
         $resolver->setAllowedTypes('source_language', 'string');

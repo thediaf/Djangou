@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Djangou application.
+ *
+ * (c) Diafra Soumaré and Bechir Ba
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -55,7 +64,6 @@ class Suggestion
         $this->setStatus(self::PENDING);
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -98,7 +106,7 @@ class Suggestion
      */
     public function setAcceptedAt(): self
     {
-        if($this->acceptedAt) {
+        if ($this->acceptedAt) {
             $this->acceptedAt = new \DateTime();
         }
 
@@ -112,13 +120,13 @@ class Suggestion
 
     public function setStatus(string $status): self
     {
-        if(!in_array($status, self::STATUS)) {
-            throw new \InvalidArgumentException(sprintf("status must be on of (%s), %s given", implode(", ", self::STATUS)));
+        if (!in_array($status, self::STATUS)) {
+            throw new \InvalidArgumentException(sprintf('status must be on of (%s), %s given', implode(', ', self::STATUS)));
         }
 
         $this->status = $status;
 
-        if($status == self::ACCTEPED) {
+        if (self::ACCTEPED == $status) {
             $this->acceptedAt = new \DateTime();
         }
 
@@ -149,7 +157,7 @@ class Suggestion
 
     public function getBadgeStatus(): string
     {
-        switch($this->status) {
+        switch ($this->status) {
             case self::PENDING:
                 return 'amber';
             case self::REJECTED:

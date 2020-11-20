@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Djangou application.
+ *
+ * (c) Diafra Soumaré and Bechir Ba
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Security;
 
 use App\Entity\User;
@@ -92,7 +101,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
-        
+
         return new RedirectResponse('/');
     }
 

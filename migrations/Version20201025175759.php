@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Djangou application.
+ *
+ * (c) Diafra Soumaré and Bechir Ba
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
@@ -12,15 +21,15 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20201025175759 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE suggestion (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, translate_id INT NOT NULL, suggested_at DATETIME NOT NULL, accepted_at DATETIME DEFAULT NULL, status VARCHAR(255) DEFAULT NULL, INDEX IDX_DD80F31BA76ED395 (user_id), INDEX IDX_DD80F31B649893AF (translate_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE translate (id INT AUTO_INCREMENT NOT NULL, language_id INT NOT NULL, word VARCHAR(255) NOT NULL, classe VARCHAR(255) NOT NULL, is_suggestion TINYINT(1) DEFAULT NULL, INDEX IDX_4A10637782F1BAF4 (language_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -38,10 +47,10 @@ final class Version20201025175759 extends AbstractMigration
         $this->addSql('ALTER TABLE history ADD CONSTRAINT FK_27BA704B158E0B66 FOREIGN KEY (target_id) REFERENCES translate (id)');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE suggestion DROP FOREIGN KEY FK_DD80F31B649893AF');
         $this->addSql('ALTER TABLE translate_translate DROP FOREIGN KEY FK_EA37FAF6955F247A');

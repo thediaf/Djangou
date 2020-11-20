@@ -1,15 +1,24 @@
 <?php
 
+/*
+ * This file is part of the Djangou application.
+ *
+ * (c) Diafra Soumaré and Bechir Ba
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller;
 
 use App\Entity\History;
 use App\Repository\HistoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -43,24 +52,24 @@ class HistoryController extends AbstractController
      */
     public function updateStatus(History $history, Request $request, EntityManagerInterface $entityManager): Response
     {
-        if(!$request->isXmlHttpRequest()) {
-            throw new \Exception("This action support only ajax request");
+        if (!$request->isXmlHttpRequest()) {
+            throw new \Exception('This action support only ajax request');
         }
 
         $isMemorized = $request->request->get('isMemorized', null);
 
-        if($isMemorized === null) {
+        if (null === $isMemorized) {
             return $this->json([
-                'success' => false
+                'success' => false,
             ]);
         }
-        
-        $history->setIsMemorised($isMemorized == "false" ? false : true);
+
+        $history->setIsMemorised('false' == $isMemorized ? false : true);
         $entityManager->flush();
-        
+
         return $this->json([
             'success' => true,
-            'progression' => $this->getUser()->getProgression()
+            'progression' => $this->getUser()->getProgression(),
         ]);
     }
 
@@ -69,7 +78,7 @@ class HistoryController extends AbstractController
      */
     public function delete(Request $request, History $history): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$history->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $history->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($history);
             $entityManager->flush();

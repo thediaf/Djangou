@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Djangou application.
+ *
+ * (c) Diafra Soumaré and Bechir Ba
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -53,7 +62,7 @@ class User implements UserInterface, \Serializable
     }
 
     const NB_ITEMS = 25;
-    
+
     public function getId(): ?int
     {
         return $this->id;
@@ -84,7 +93,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Undocumented function
+     * Undocumented function.
      *
      * @see UserInterface
      */
@@ -94,14 +103,14 @@ class User implements UserInterface, \Serializable
 
         $roles[] = 'ROLE_USER';
 
-        return array_unique($roles);        
+        return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
-        return $this;        
+        return $this;
     }
 
     public function hasRole(string $role): bool
@@ -110,8 +119,6 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * 
-     *
      * @return string|null The salt
      */
     public function getSalt()
@@ -121,13 +128,13 @@ class User implements UserInterface, \Serializable
 
     public function eraseCredentials()
     {
-        
     }
 
     /**
-     * @link https://php.net/manual/en/serilizable.serialize.php
+     * @see https://php.net/manual/en/serilizable.serialize.php
      *
      * @return string the string representation of the object or null
+     *
      * @since 5.1.0
      */
     public function serialize()
@@ -135,26 +142,28 @@ class User implements UserInterface, \Serializable
         return serialize([
             $this->id,
             $this->username,
-            $this->password
+            $this->password,
         ]);
     }
 
     /**
-     * @link https://php.net/manual/en/serilizable.serialize.php
+     * @see https://php.net/manual/en/serilizable.serialize.php
      *
      * @param string $serialized <p>
-     * The string representation of the object
-     * </p>
+     *                           The string representation of the object
+     *                           </p>
+     *
      * @return void
+     *
      * @since 5.1.0
      */
     public function unserialize($serialized)
     {
-        list (
+        list(
             $this->id,
             $this->username,
             $this->password
-        ) = unserialize($serialized, ['allowed_classes' => false]);   
+        ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 
     /**
@@ -222,8 +231,8 @@ class User implements UserInterface, \Serializable
     public function getProgression(): ?int
     {
         $count = $this->histories->count();
-        
-        if($count > 0) {
+
+        if ($count > 0) {
             return 100 * ($this->getMemorized() / $count);
         }
 
@@ -232,9 +241,8 @@ class User implements UserInterface, \Serializable
 
     public function getMemorized(): ?int
     {
-        return $this->histories->filter(function(History $history) {
+        return $this->histories->filter(function (History $history) {
             return $history->isMemorised();
         })->count();
     }
 }
-    

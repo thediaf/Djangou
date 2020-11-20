@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Djangou application.
+ *
+ * (c) Diafra Soumaré and Bechir Ba
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\EventSubscriber;
 
 use App\Entity\History;
@@ -23,7 +32,7 @@ class TranslateSubscriber implements EventSubscriberInterface
 
     public function onTranslateRequested(TranslateEvent $event)
     {
-        if($this->user instanceof User) {
+        if ($this->user instanceof User) {
             $history = (new History())
                 ->setSource($event->getSource())
                 ->setTarget($event->getTarget())
@@ -34,11 +43,11 @@ class TranslateSubscriber implements EventSubscriberInterface
             $histories = $this->entityManager->getRepository(History::class)->findAll();
             $found = false;
             foreach ($histories as $h) {
-                if($history->equals($h)) {
+                if ($history->equals($h)) {
                     $found = true;
                 }
             }
-            if(!$found) {
+            if (!$found) {
                 $this->entityManager->flush();
             }
         }

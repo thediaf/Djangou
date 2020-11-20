@@ -1,14 +1,22 @@
 <?php
 
+/*
+ * This file is part of the Djangou application.
+ *
+ * (c) Diafra Soumaré and Bechir Ba
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Repository;
 
 use App\Entity\Language;
 use App\Entity\Search;
 use App\Entity\Translate;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder as ORMQueryBuilder;
-
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Translate|null find($id, $lockMode = null, $lockVersion = null)
@@ -26,7 +34,7 @@ class TranslateRepository extends ServiceEntityRepository
     public function findWord(Search $search)
     {
         $query = $this->findWordQuery();
-        
+
         if ($search->getWord()) {
             $query = $query->leftJoin('t.word', 'w')
                         ->addSelect('w')
@@ -36,7 +44,8 @@ class TranslateRepository extends ServiceEntityRepository
                         ->andWhere('t.language = :wordLang')
                         ->andWhere('t.isSuggestion = false')
                         ->setParameter('wordLang', $search->getTranslateLanguage());
-        }   
+        }
+
         return $query->getQuery()->getResult();
     }
 
@@ -75,7 +84,7 @@ class TranslateRepository extends ServiceEntityRepository
     }
 
     /**
-     * TODO: Implements pagination
+     * TODO: Implements pagination.
      */
     public function paginateByLanguage(Language $language, int $page)
     {

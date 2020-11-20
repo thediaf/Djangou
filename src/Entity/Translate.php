@@ -1,14 +1,22 @@
 <?php
 
+/*
+ * This file is part of the Djangou application.
+ *
+ * (c) Diafra Soumaré and Bechir Ba
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TranslateRepository")
@@ -174,7 +182,7 @@ class Translate implements JsonSerializable
      */
     public function updateClasse()
     {
-        if(!$this->classe) {
+        if (!$this->classe) {
             $this->classe = 'inconnu';
         }
     }
@@ -183,7 +191,7 @@ class Translate implements JsonSerializable
     {
         return [
             'classe' => $this->classe,
-            'word' => $this->word
+            'word' => $this->word,
         ];
     }
 
@@ -202,13 +210,13 @@ class Translate implements JsonSerializable
     public function getTranslateTarget(): ?Translate
     {
         foreach ($this->translates as $translate) {
-            if($translate->getLanguage() == $this->getLanguage()) {
+            if ($translate->getLanguage() == $this->getLanguage()) {
                 return $translate;
             }
         }
 
         foreach ($this->words as $translate) {
-            if($translate->getLanguage() == $this->getLanguage()) {
+            if ($translate->getLanguage() == $this->getLanguage()) {
                 return $translate;
             }
         }
