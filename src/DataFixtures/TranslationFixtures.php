@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-class TranslationFixtures extends Fixture //implements DependentFixtureInterface
+class TranslationFixtures extends Fixture implements DependentFixtureInterface
 {
     private $em;
     private $parameter;
@@ -41,13 +41,13 @@ class TranslationFixtures extends Fixture //implements DependentFixtureInterface
             $word = (new Translate())
                 ->setWord(trim($words[0]))
                 ->setClasse($this->getInterjection($interjection))
-                ->setLanguage($this->em->getRepository(Language::class)->findOneByName('Wolof'))
+                ->setLanguage($this->em->getRepository(Language::class)->findOneBy(['name' => 'Wolof']))
             ;
 
             $translated = (new Translate())
                 ->setWord($translatedWord)
                 ->setClasse($this->getInterjection($interjection))
-                ->setLanguage($this->em->getRepository(Language::class)->findOneByName('Francais'))
+                ->setLanguage($this->em->getRepository(Language::class)->findOneBy(['name' => 'Francais']))
                 ->addTranslate($word)
                 ;
 
@@ -68,12 +68,12 @@ class TranslationFixtures extends Fixture //implements DependentFixtureInterface
             
             $word = (new Translate())
                 ->setWord(trim($words[0]))
-                ->setLanguage($this->em->getRepository(Language::class)->findOneByName('Pulaar'))
+                ->setLanguage($this->em->getRepository(Language::class)->findOneBy(['name' => 'Pulaar']))
             ;
 
             $translated = (new Translate())
                 ->setWord($translatedWord)
-                ->setLanguage($this->em->getRepository(Language::class)->findOneByName('Francais'))
+                ->setLanguage($this->em->getRepository(Language::class)->findOneBy(['name' => 'Francais']))
                 ->addTranslate($word)
             ;
 
