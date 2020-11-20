@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Djangou application.
+ *
+ * (c) Diafra Soumaré and Bechir Ba
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller;
 
 use App\Entity\Search;
@@ -24,13 +33,14 @@ class TranslationController extends AbstractController
         $form = $this->createForm(SearchType::class, $search);
         $form->handleRequest($request);
 
-        if($request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             $translated = $translateRepository->getTranslationOf($search);
 
-            if($translated) {
+            if ($translated) {
                 foreach ($translated->getAll() as $source) {
                     $event = new TranslateEvent($source, $translated);
                     $eventDispatcher->dispatch($event, TranslateEvents::TRANSLATE_REQUESTED);
+
                     break;
                 }
             }
@@ -39,7 +49,7 @@ class TranslationController extends AbstractController
         }
 
         return $this->render('translation/index.html.twig', [
-            'form'  => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 }

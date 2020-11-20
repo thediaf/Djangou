@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Djangou application.
+ *
+ * (c) Diafra Soumaré and Bechir Ba
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Repository;
 
 use App\Entity\User;
@@ -20,7 +29,8 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get recents subscribed users
+     * Get recents subscribed users.
+     *
      * @return User[] Returns an array of Users objects
      */
     public function getPagination()

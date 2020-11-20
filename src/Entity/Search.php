@@ -1,31 +1,34 @@
 <?php
+
+/*
+ * This file is part of the Djangou application.
+ *
+ * (c) Diafra Soumaré and Bechir Ba
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
-
-
-use App\Entity\Language;
 
 class Search
 {
     /**
-     *
      * @var string|null
      */
     private $word;
 
     /**
-     *
      * @var Language|null
      */
     private $wordLanguage;
 
     /**
-     *
      * @var Language|null
      */
     private $translateLanguage;
 
     /**
-     *
      * @return string
      */
     public function getWord(): ?string
@@ -34,8 +37,6 @@ class Search
     }
 
     /**
-     *
-     * @param string $word
      * @return self
      */
     public function setWord(string $word): ?self
@@ -67,7 +68,6 @@ class Search
     // }
 
     /**
-     *
      * @return Language
      */
     public function getWordLanguage(): ?Language
@@ -76,8 +76,6 @@ class Search
     }
 
     /**
-     *
-     * @param Language $wordLanguage
      * @return self
      */
     public function setWordLanguage(Language $wordLanguage): ?self
@@ -88,7 +86,6 @@ class Search
     }
 
     /**
-     *
      * @return Language
      */
     public function getTranslateLanguage(): ?Language
@@ -97,8 +94,6 @@ class Search
     }
 
     /**
-     *
-     * @param Language $translateLanguage
      * @return self
      */
     public function setTranslateLanguage(Language $translateLanguage): ?self

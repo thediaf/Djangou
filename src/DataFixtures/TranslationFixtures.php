@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Djangou application.
+ *
+ * (c) Diafra Soumaré and Bechir Ba
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\DataFixtures;
 
 use App\Entity\Language;
@@ -18,26 +27,27 @@ class TranslationFixtures extends Fixture implements DependentFixtureInterface
     public function __construct(EntityManagerInterface $em, ParameterBagInterface $parameter)
     {
         $this->parameter = $parameter;
-        $this->em = $em;     
+        $this->em = $em;
     }
 
     public function load(ObjectManager $manager)
     {
         $dir = $this->parameter->get('kernel.project_dir') . '/var/app/';
-        
-    //    $languages = ['wolof', 'pulaar']
+
+        //    $languages = ['wolof', 'pulaar']
         $pl = $dir . 'wolof-fr.txt';
 
         $lines = explode("\n", file_get_contents($pl));
         foreach ($lines as $line) {
-            $words = explode(":", $line);
+            $words = explode(':', $line);
 
-            if(count($words) !== 2)
+            if (2 !== count($words)) {
                 continue;
-            
-            $translatedWord = trim(substr($words[1], strrpos($words[1], ".") + 2));
-            $interjection = trim(substr($words[1], 0, strpos($words[1], ".")));
-            
+            }
+
+            $translatedWord = trim(substr($words[1], strrpos($words[1], '.') + 2));
+            $interjection = trim(substr($words[1], 0, strpos($words[1], '.')));
+
             $word = (new Translate())
                 ->setWord(trim($words[0]))
                 ->setClasse($this->getInterjection($interjection))
@@ -57,15 +67,16 @@ class TranslationFixtures extends Fixture implements DependentFixtureInterface
 
         $pl = $dir . 'pulaar-fr.txt';
         $lines = explode("\n", file_get_contents($pl));
-        
-        foreach ($lines as $line) {
-            $words = explode(":", $line);
 
-            if(count($words) !== 2)
+        foreach ($lines as $line) {
+            $words = explode(':', $line);
+
+            if (2 !== count($words)) {
                 continue;
-            
-            $translatedWord = trim(substr($words[1], 0, strpos($words[1], ".")));
-            
+            }
+
+            $translatedWord = trim(substr($words[1], 0, strpos($words[1], '.')));
+
             $word = (new Translate())
                 ->setWord(trim($words[0]))
                 ->setLanguage($this->em->getRepository(Language::class)->findOneBy(['name' => 'Pulaar']))
@@ -84,10 +95,9 @@ class TranslationFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-
-    private  function getInterjection(string $str): ?string
-    {   
-        switch(trim($str)) {
+    private function getInterjection(string $str): ?string
+    {
+        switch (trim($str)) {
             case 'n':
                 return 'Nom';
             case 'adj':
@@ -98,7 +108,7 @@ class TranslationFixtures extends Fixture implements DependentFixtureInterface
                 return 'Adverbe';
             case 'conj':
                 return 'Conjonction';
-            case 'rel': 
+            case 'rel':
                 return 'Relative';
             case 'interrog':
                 return 'Interrogative';

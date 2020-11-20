@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Djangou application.
+ *
+ * (c) Diafra Soumaré and Bechir Ba
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Form\Admin;
 
 use App\Entity\Translate;
@@ -16,7 +25,7 @@ class TranslateType extends AbstractType
         $builder
             ->add('word')
             ->add('classe', TextType::class, [
-                'required' => false
+                'required' => false,
             ])
             // ->add('language')
             // ->add('words')
@@ -25,7 +34,7 @@ class TranslateType extends AbstractType
                 'entry_options' => ['source_language' => $options['source_language']],
                 'allow_add' => true,
                 'allow_delete' => true,
-                'label' => false
+                'label' => false,
             ])
         ;
     }
@@ -34,7 +43,7 @@ class TranslateType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Translate::class,
-            'source_language' => ''
+            'source_language' => '',
         ]);
 
         $resolver->setAllowedTypes('source_language', 'string');
